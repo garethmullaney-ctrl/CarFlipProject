@@ -71,6 +71,13 @@
   .summary .lm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px}
   .pend{font-family:var(--mono);font-size:11px;color:var(--faint);font-style:italic}
   .dash{color:var(--faint)}
+  .poundpre{font-family:var(--mono);color:var(--muted);font-size:12px;margin-right:1px}
+  input.repcell{width:64px;font-family:var(--mono);font-size:13px;text-align:right;border:1px solid var(--line);border-radius:4px;padding:3px 5px;background:var(--card);color:var(--ink);-moz-appearance:textfield}
+  input.repcell:hover{border-color:var(--muted)}
+  input.repcell:focus{outline:none;border-color:var(--petrol);background:var(--petrol-tint)}
+  .edithint{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:12px;line-height:1.55}
+  .resetlink{font-family:var(--mono);font-size:11px;color:var(--petrol);cursor:pointer;margin-left:8px;font-weight:400}
+  .resetlink:hover{text-decoration:underline}
   .tnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.55;max-width:80ch}
   .archwrap{margin-top:26px;border-top:1px solid var(--line);padding-top:8px}
   .archtoggle{font-family:var(--mono);font-size:12px;color:var(--muted);background:none;border:0;cursor:pointer;padding:8px 0;letter-spacing:.04em}
@@ -310,9 +317,21 @@ const CARS = [
 ];
 
 /* ============ RENDER: HOME ============ */
+/* ---- editable repair overrides (saved on this device via localStorage) ---- */
+function ovKey(id){return 'cf_ov_'+id;}
+function loadOv(id){try{return JSON.parse(localStorage.getItem(ovKey(id)))||{};}catch(e){return{};}}
+function saveOv(id,ov){try{localStorage.setItem(ovKey(id),JSON.stringify(ov));}catch(e){}}
+function clearOv(id){try{localStorage.removeItem(ovKey(id));}catch(e){}}
+function hasOv(id){const o=loadOv(id);return o&&Object.keys(o).length>0;}
+// effective per-row value: col 'b' = DIY(best, index1), 'w' = Garage(worst, index2)
+function effRow(c,i,col){const ov=loadOv(c.id),d=c.repair.rows[i];const base=col==='b'?d[1]:d[2];const o=ov[i];return (o&&o[col]!=null&&!isNaN(o[col]))?o[col]:base;}
+function effSub(c,col){if(!c.repair)return null;let s=0;c.repair.rows.forEach((r,i)=>{s+=effRow(c,i,col);});return s;}
+function effRepairDiy(c){return c.repair?effSub(c,'b'):(c.model?c.model.repairDiy:0);}
+function effRepairGarage(c){return c.repair?effSub(c,'w'):(c.model?c.model.repairGarage:0);}
+
 function costsOf(c){
   if(!c.model) return null;
-  const M=c.model, rep=M.repairDiy, cont=Math.round(0.15*rep);
+  const M=c.model, rep=effRepairDiy(c), cont=Math.round(0.15*rep);
   const fees = M.feePct!=null ? Math.round(c.currentBid*M.feePct)+(M.feeFixed||0) : M.fees;
   return fees+M.transport+M.recommission+rep+cont;
 }
@@ -391,7 +410,9 @@ function scale(o,labs){
 }
 function listBlock(items){return `<ul class="clean">${items.map(i=>`<li class="${i[0]}">${i[1]}</li>`).join('')}</ul>`;}
 
+let REPAIR_LIVE=null, REPAINT=null;
 function renderCar(c){
+  REPAIR_LIVE=null; REPAINT=null;
   document.getElementById('backBtn').classList.add('show');
   document.getElementById('navMeta').textContent = 'Lot '+c.lot;
   const vc=vColor(c.verdict), vt=vTint(c.verdict);
@@ -441,15 +462,25 @@ function renderCar(c){
 
   // repair
   if(c.repair){
-    const rows=c.repair.rows.map(r=>{
+    const editable = !!c.model && c.sold==null;
+    const cell=(i,col)=>{
+      const v=editable?effRow(c,i,col):(col==='b'?c.repair.rows[i][1]:c.repair.rows[i][2]);
+      return editable
+        ? `<td class="num"><span class="poundpre">£</span><input class="repcell" type="number" min="0" step="5" data-i="${i}" data-col="${col}" value="${v}"></td>`
+        : `<td class="num">${fmt(v)}</td>`;
+    };
+    const rows=c.repair.rows.map((r,i)=>{
       const link=r[4]?`<br><a class="partlink" href="${r[4]}" target="_blank" rel="noopener">${r[5]} →</a>`:'';
       const tag=r[3]?`<span class="tag known">${r[3]}</span>`:`<span class="tag">potential</span>`;
-      return `<tr><td>${r[0]}${tag}${link}</td><td>${fmt(r[1])}</td><td>${fmt(r[2])}</td></tr>`;
+      return `<tr><td>${r[0]}${tag}${link}</td>${cell(i,'b')}${cell(i,'w')}</tr>`;
     }).join('');
+    const sb=editable?effSub(c,'b'):c.repair.subBest, sw=editable?effSub(c,'w'):c.repair.subWorst;
+    const reset = (editable&&hasOv(c.id))?`<a class="resetlink" onclick="resetRepair('${c.id}')">reset to defaults</a>`:'';
     h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span>
       <span class="sec-note">${c.repair.note}</span></div><div class="sec-body"><table>
-      <thead><tr><th>Item</th><th>DIY (best)</th><th>Garage (worst)</th></tr></thead>
-      <tbody>${rows}<tr class="sub"><td>Repair subtotal</td><td>${fmt(c.repair.subBest)}</td><td>${fmt(c.repair.subWorst)}</td></tr></tbody></table></div></section>`;
+      <thead><tr><th>Item</th><th class="num">DIY (best)</th><th class="num">Garage (worst)</th></tr></thead>
+      <tbody>${rows}<tr class="sub"><td>Repair subtotal ${reset}</td><td class="num" id="subBest">${fmt(sb)}</td><td class="num" id="subWorst">${fmt(sw)}</td></tr></tbody></table>
+      ${editable?`<p class="edithint">Tap any figure to change it — the profit below updates instantly. Edits are saved on <b>this device</b>. Want a number baked into the site for every device? Just tell me the figure.</p>`:''}</div></section>`;
   } else if(c.pendingRepair){
     h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span></div>
       <div class="sec-body"><div class="pending">${c.pendingRepair}</div></div></section>`;
@@ -464,8 +495,8 @@ function renderCar(c){
           <input type="range" id="bid" min="${c.model.bidMin??0}" max="${c.model.bidMax??1500}" step="${c.model.bidStep??25}" value="${c.model.bidDefault}"></div>
         <div class="togwrap"><span class="cap">Who does the bodywork?</span>
           <div class="toggle" id="repToggle">
-            <button data-r="diy" class="on">DIY · ${fmt(c.model.repairDiy)}</button>
-            <button data-r="garage">Garage · ${fmt(c.model.repairGarage)}</button></div></div></div>
+            <button data-r="diy" class="on">DIY · <span id="togDiy">${fmt(effRepairDiy(c))}</span></button>
+            <button data-r="garage">Garage · <span id="togGarage">${fmt(effRepairGarage(c))}</span></button></div></div></div>
       <div class="allin">All-in to buy &amp; fix: <b id="allInOut"></b><span id="allInBreak" style="color:var(--faint)"></span></div>
       <div class="profitgrid" id="profitGrid"></div>
       <div class="verdict" id="verdict"><span class="vt" id="verdictT"></span><span class="vd" id="verdictD"></span></div>
@@ -475,15 +506,45 @@ function renderCar(c){
   document.getElementById('app').innerHTML = h;
   window.scrollTo(0,0);
   if(c.history&&c.history.trail) drawMileage(c.history.trail);
+  if(c.repair && c.model && c.sold==null){ REPAIR_LIVE={diy:effSub(c,'b'),garage:effSub(c,'w')}; wireRepairEdits(c); }
   if(c.model) wireCalc(c);
 }
+
+/* ---- editable repair: recompute subtotals, persist, refresh calc ---- */
+function wireRepairEdits(c){
+  function recalc(){
+    const ov=loadOv(c.id);
+    document.querySelectorAll('.repcell').forEach(inp=>{
+      const i=+inp.dataset.i, col=inp.dataset.col;
+      let val=parseFloat(inp.value); if(isNaN(val)||val<0) val=0;
+      const def=col==='b'?c.repair.rows[i][1]:c.repair.rows[i][2];
+      if(!ov[i]) ov[i]={};
+      if(Math.round(val)===def){ delete ov[i][col]; if(Object.keys(ov[i]).length===0) delete ov[i]; }
+      else ov[i][col]=Math.round(val);
+    });
+    saveOv(c.id, ov);
+    const sb=effSub(c,'b'), sw=effSub(c,'w');
+    document.getElementById('subBest').textContent=fmt(sb);
+    document.getElementById('subWorst').textContent=fmt(sw);
+    const td=document.getElementById('togDiy'), tg=document.getElementById('togGarage');
+    if(td) td.textContent=fmt(sb); if(tg) tg.textContent=fmt(sw);
+    REPAIR_LIVE={diy:sb,garage:sw};
+    if(REPAINT) REPAINT();
+    // toggle reset link visibility
+    const rl=document.querySelector('.resetlink');
+    if(hasOv(c.id) && !rl){ const cell=document.querySelector('tr.sub td:first-child'); if(cell) cell.insertAdjacentHTML('beforeend',` <a class="resetlink" onclick="resetRepair('${c.id}')">reset to defaults</a>`); }
+    if(!hasOv(c.id) && rl){ rl.remove(); }
+  }
+  document.querySelectorAll('.repcell').forEach(inp=>{ inp.addEventListener('input',recalc); });
+}
+function resetRepair(id){ clearOv(id); const c=CARS.find(x=>x.id===id); if(c) renderCar(c); }
 
 /* ---- interactive calc ---- */
 function wireCalc(c){
   const M=c.model; let bid=M.bidDefault, route='diy';
   const BMIN=M.bidMin??0, BMAX=M.bidMax??1500;
   function paint(){
-    const repair=route==='diy'?M.repairDiy:M.repairGarage;
+    const repair=route==='diy' ? (REPAIR_LIVE?REPAIR_LIVE.diy:M.repairDiy) : (REPAIR_LIVE?REPAIR_LIVE.garage:M.repairGarage);
     const cont=Math.round(0.15*repair);
     const fees = M.feePct!=null ? Math.round(bid*M.feePct)+(M.feeFixed||0) : M.fees;
     const allIn=bid+fees+M.transport+M.recommission+repair+cont;
@@ -514,6 +575,7 @@ function wireCalc(c){
   document.getElementById('bid').addEventListener('input',e=>{bid=+e.target.value;paint();});
   document.querySelectorAll('#repToggle button').forEach(b=>b.addEventListener('click',()=>{
     document.querySelectorAll('#repToggle button').forEach(x=>x.classList.remove('on'));b.classList.add('on');route=b.dataset.r;paint();}));
+  REPAINT=paint;
   paint();
 }
 
