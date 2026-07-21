@@ -195,7 +195,7 @@
 
 <script>
 const fmt = n => (n<0?'−£':'£') + Math.abs(Math.round(n)).toLocaleString('en-GB');
-const SCAN_DATE='21 Jul (midday)';
+const SCAN_DATE='21 Jul (09:14)';
 const VC = {go:'--go',ok:'--caution',thin:'--stop',stop:'--stop',pass:'--stop',watch:'--watch',review:'--watch'};
 const VT = {go:'GO',ok:'OK',thin:'THIN',stop:'STOP',pass:'PASS',watch:'WATCH',review:'REVIEW'};
 function vColor(v){return getComputedStyle(document.documentElement).getPropertyValue(VC[v]||'--muted');}
@@ -316,7 +316,7 @@ function costsOf(c){
 function rowHtml(c){
   const vc=vColor(c.verdict), vt=vTint(c.verdict);
   const costs=costsOf(c);
-  const bidShown = c.bin ? ('BIN '+fmt(c.bin)) : fmt(c.currentBid);
+  const bidShown = c.bin ? (fmt(c.currentBid)+'<div class="lm">BIN '+fmt(c.bin)+'</div>') : fmt(c.currentBid);
   let costCell='<span class="pend">pending</span>', profCell='<span class="pend">—</span>';
   if(costs!=null){
     const profit=c.resale.mid - c.currentBid - costs;
@@ -400,7 +400,7 @@ function renderCar(c){
   h += `<section><div class="sec-head"><span class="sec-num">00</span><span class="sec-title">Bid guide</span>
     <span class="sec-note">${c.model?('for a '+fmt(c.model.targetProfit)+' target profit'):(c.bidGuideNote||'')}</span></div>
     <div class="sec-body">${scale(c.bidGuide,bgLabs)}
-    <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">${c.bin?'Buy-it-now':'Current bid'}</span><span class="v">${c.bin?fmt(c.bin):fmt(c.currentBid)}</span></div></div></section>`;
+    <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">Current bid${c.bin?' · BIN':''}</span><span class="v">${fmt(c.currentBid)}${c.bin?' · '+fmt(c.bin):''}</span></div></div></section>`;
 
   // copart + expected sale
   h += `<div class="grid2">
