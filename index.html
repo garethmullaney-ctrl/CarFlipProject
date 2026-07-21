@@ -306,7 +306,7 @@ const CARS = [
   headline:'The whole bet: it MOT’d & drove 656 miles ago, so “does not run” is probably crash-electrical — not a dead engine.',
   chips:[['good','Gen2 987.2 — no IMS bearing issue'],['good','MOT-passed & driving Apr ’26'],['good','79k genuine · no clocking'],
     ['good','MOT to Mar 2027'],['warn','“Does not run” at Copart'],['warn','Roof won’t retract'],
-    ['warn','No V5 · only 1 key'],['warn','Front bumper damage'],['warn','Front end = 987.1 (Gen1) parts — prior repair'],['','BIN £6,500 · reserve not met']],
+    ['warn','No V5 · only 1 key'],['warn','Front bumper damage'],['info','Front lower grille = silver mesh (comps: black fins) — cosmetic, confirm in person'],['','BIN £6,500 · reserve not met']],
   bidGuide:{safe:6800,target:8100,ceiling:9600},
   fees:[['Buyer fee (Fee B tier)','~£490'],['VAT on buyer fee (20%)',98],['Online bid + gate fee','~£130'],['VAT on hammer','£0 · margin scheme']],
   feesTotal:720, transport:'Copart delivery £377 to KT3 (quoted) · independent ~£180–220',
@@ -315,10 +315,10 @@ const CARS = [
   history:{vrn:'LB60 FJO',motTo:'31 Mar 2027',
     trail:[[2014,14501],[2016,30376],[2018,50254],[2019,60595],[2020,63982],[2021,67380],[2022,69759],[2023,72104],[2024,74916],[2026,79066]],
     trailNote:'<b>No clocking.</b> A clean climb 14,501→79,066 across the whole record — a low-mileage, cared-for weekend car (~4–5k/yr). The <b>April 2026 pass at 79,066</b> is the key fact: it was running and driving 656 miles before it reached Copart.',
-    notes:[['bad','Copart note: ROOF DOES NOT RETRACT — powered hood inoperative'],['watch','Run condition: “does not run” — but MOT-driven 656 miles ago'],['info','Roof + no-start may share ONE cause (flat/disconnected battery or crash cut-off)'],['bad','No V5 logbook — DVLA V62 replacement (£25 + wait)'],['bad','Copart note: only 1 key — spare Porsche key ~£250'],['info','Gen2 9A1 engine — no IMS bearing (unlike pre-2009 cars)'],['watch','Cluster shows PSM / ABS / airbag / CEL — likely impact fault codes, no airbag deployment'],['bad','Front end is 987.1 (Gen1) bumper + lights on a Gen2 car — earlier prior repair. Engine confirms it IS a 3.4 S (3436cc DFI); front just wears cheaper Gen1 parts. Explains the different grille vs Gen2 comps — factor into resale/presentation.']],
+    notes:[['bad','Copart note: ROOF DOES NOT RETRACT — powered hood inoperative'],['watch','Run condition: “does not run” — but MOT-driven 656 miles ago'],['info','Roof + no-start may share ONE cause (flat/disconnected battery or crash cut-off)'],['bad','No V5 logbook — DVLA V62 replacement (£25 + wait)'],['bad','Copart note: only 1 key — spare Porsche key ~£250'],['info','Gen2 9A1 engine — no IMS bearing (unlike pre-2009 cars)'],['watch','Cluster shows PSM / ABS / airbag / CEL — likely impact fault codes, no airbag deployment'],['info','Front lower grille insert is silver mesh where comps have black fins — looks like an aftermarket/replacement grille (cosmetic). Outer intakes DO carry light units. Engine confirms genuine 3.4 S. Earlier "Gen1 front" call was overstated — confirm bumper/light spec on collection; not a proven prior-repair flag.']],
     advisories:[['watch','Apr ’26: coolant pipe weep at connecting joint'],['watch','Apr ’26: 2× front tyres — cut / perishing'],['ok','Report: never scrapped · not imported/exported · no colour change'],['watch','Report: 6 previous owners · currently SORN (off-road)'],['info','Copart book value (ACV) £17,388']]},
   repair:{note:'real prices + links · DIY=best / Garage=worst (researched) · £0 red = conditional unknown', rows:[
-    ['Front bumper — used 987.1 to match current front (needs paint)',249,249,'sourced','https://www.ebay.co.uk/itm/127847226858','eBay £249 — Gen1 match'],
+    ['Front bumper — used genuine 987 (needs paint)',249,249,'sourced','https://www.ebay.co.uk/itm/127847226858','eBay £249 — this listing'],
     ['Bumper paint & fit — silver (DIY kit → bodyshop)',40,250,'researched','','spray kit vs bodyshop respray'],
     ['Coolant pipe / hose (MOT advisory weep)',50,50,'sourced','https://www.ebay.co.uk/itm/168451933548','eBay £50 — this listing'],
     ['2× front tyres 235/40 R18 (MOT advisory)',100,150,'sourced','https://www.ebay.co.uk/sch/i.html?_nkw=235+40+r18+tyre','eBay ~£45 ea budget → Michelin'],
@@ -327,10 +327,10 @@ const CARS = [
     ['Diagnose “does not run” — OBD reader vs garage hour',25,120,'researched','','self-check free → garage diag ~£120'],
     ['PSM / airbag fault clear (post-impact scan)',25,60,'researched','','OBD reader vs garage scan'],
     ['2nd key — cut & programmed (Porsche specialist)',150,250,'researched','','independent Porsche coding'],
-    ['Convert front to Gen2 look — 987.2 bumper+DRLs (+ Gen2 lights) for top £',0,700,'researched','','OPTIONAL: present as proper Gen2 S · ~£450 bumper+DRL, more w/ Gen2 headlights'],
+    ['Correct front grille insert — OEM look vs current mesh (optional)',0,120,'researched','','swap aftermarket silver mesh for OEM grille if wanted'],
     ['ENGINE / PDK contingency — ONLY if it won’t run',0,0,'','','conditional: used PDK £1.5–3k / engine £5k+ — unknown until running']],
-    subBest:724, subWorst:2774},
-  model:{fees:720,transport:377,recommission:100,repairDiy:724,repairGarage:2774,targetProfit:2500,
+    subBest:724, subWorst:2194},
+  model:{fees:720,transport:377,recommission:100,repairDiy:724,repairGarage:2194,targetProfit:2500,
     resale:{low:10500,mid:12500,high:14500},bidDefault:5500,bidMin:2900,bidMax:6500,bidStep:100}
 }
 ];
