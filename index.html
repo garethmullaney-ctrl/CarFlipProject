@@ -77,6 +77,17 @@
   input.repcell:focus{outline:none;border-color:var(--petrol);background:var(--petrol-tint)}
   input.repcell.zero{color:var(--stop);border-color:#eebbb4;background:var(--stop-tint);font-weight:700}
   .tosource{font-family:var(--mono);font-size:11px;color:var(--stop)}
+  .cust-name{width:100%;font-size:13.5px;border:1px solid var(--line);border-radius:4px;padding:5px 7px;background:var(--card);color:var(--ink)}
+  .cust-name:focus{outline:none;border-color:var(--petrol)}
+  .custmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:5px}
+  .cust-link{flex:1;min-width:160px;font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-radius:4px;padding:4px 6px;background:var(--card);color:var(--muted)}
+  .cust-link:focus{outline:none;border-color:var(--petrol)}
+  .removelink{font-family:var(--mono);font-size:11px;color:var(--stop);cursor:pointer}
+  .removelink:hover{text-decoration:underline}
+  tr.addrow td{padding-top:12px}
+  .addlink{font-family:var(--mono);font-size:12.5px;color:var(--petrol);cursor:pointer;font-weight:600;display:inline-block;padding:6px 0}
+  .addlink:hover{text-decoration:underline}
+  tr.customrow td{background:var(--petrol-tint)}
   .repwarn{font-family:var(--mono);font-size:11.5px;color:#8a2a20;background:var(--stop-tint);border:1px solid #eebbb4;border-radius:5px;padding:9px 12px;margin-top:12px;line-height:1.55}
   .edithint{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:12px;line-height:1.55}
   .resetlink{font-family:var(--mono);font-size:11px;color:var(--petrol);cursor:pointer;margin-left:8px;font-weight:400}
@@ -325,10 +336,15 @@ function ovKey(id){return 'cf_ov_'+id;}
 function loadOv(id){try{return JSON.parse(localStorage.getItem(ovKey(id)))||{};}catch(e){return{};}}
 function saveOv(id,ov){try{localStorage.setItem(ovKey(id),JSON.stringify(ov));}catch(e){}}
 function clearOv(id){try{localStorage.removeItem(ovKey(id));}catch(e){}}
-function hasOv(id){const o=loadOv(id);return o&&Object.keys(o).length>0;}
+function hasOv(id){const o=loadOv(id);return (o&&Object.keys(o).length>0)||loadAdd(id).length>0;}
+// custom (user-added) repair lines, saved on device
+function addKey(id){return 'cf_add_'+id;}
+function loadAdd(id){try{return JSON.parse(localStorage.getItem(addKey(id)))||[];}catch(e){return[];}}
+function saveAdd(id,a){try{localStorage.setItem(addKey(id),JSON.stringify(a));}catch(e){}}
+function clearAdd(id){try{localStorage.removeItem(addKey(id));}catch(e){}}
 // effective per-row value: col 'b' = DIY(best, index1), 'w' = Garage(worst, index2)
 function effRow(c,i,col){const ov=loadOv(c.id),d=c.repair.rows[i];const base=col==='b'?d[1]:d[2];const o=ov[i];return (o&&o[col]!=null&&!isNaN(o[col]))?o[col]:base;}
-function effSub(c,col){if(!c.repair)return null;let s=0;c.repair.rows.forEach((r,i)=>{s+=effRow(c,i,col);});return s;}
+function effSub(c,col){if(!c.repair)return null;let s=0;c.repair.rows.forEach((r,i)=>{s+=effRow(c,i,col);});loadAdd(c.id).forEach(r=>{s+=(+(col==='b'?r.b:r.w)||0);});return s;}
 function effRepairDiy(c){return c.repair?effSub(c,'b'):(c.model?c.model.repairDiy:0);}
 function effRepairGarage(c){return c.repair?effSub(c,'w'):(c.model?c.model.repairGarage:0);}
 
@@ -478,16 +494,26 @@ function renderCar(c){
       const tag=r[3]?`<span class="tag known">${r[3]}</span>`:`<span class="tag">unpriced</span>`;
       return `<tr><td>${r[0]}${tag}${link}</td>${cell(i,'b')}${cell(i,'w')}</tr>`;
     }).join('');
+    // custom (user-added) rows
+    const custRows = editable ? loadAdd(c.id).map((r,j)=>{
+      const linkView = r.link?`<a class="partlink" href="${r.link}" target="_blank" rel="noopener">open link →</a>`:'';
+      return `<tr class="customrow">
+        <td><input class="cust-name" data-ci="${j}" placeholder="Part / job — description" value="${(r.name||'').replace(/"/g,'&quot;')}">
+          <div class="custmeta"><input class="cust-link" data-ci="${j}" placeholder="web link (optional)" value="${(r.link||'').replace(/"/g,'&quot;')}"> ${linkView} <a class="removelink" onclick="removeRow('${c.id}',${j})">✕ remove</a></div></td>
+        <td class="num"><span class="poundpre">£</span><input class="repcell cust-cost${(+r.b===0)?' zero':''}" type="number" min="0" step="5" data-ci="${j}" data-col="b" value="${r.b||0}"></td>
+        <td class="num"><span class="poundpre">£</span><input class="repcell cust-cost${(+r.w===0)?' zero':''}" type="number" min="0" step="5" data-ci="${j}" data-col="w" value="${r.w||0}"></td></tr>`;
+    }).join('') : '';
+    const addBtn = editable ? `<tr class="addrow"><td colspan="3"><a class="addlink" onclick="addRow('${c.id}')">+ add a repair line</a></td></tr>` : '';
     const sb=editable?effSub(c,'b'):c.repair.subBest, sw=editable?effSub(c,'w'):c.repair.subWorst;
     const reset = (editable&&hasOv(c.id))?`<a class="resetlink" onclick="resetRepair('${c.id}')">reset to defaults</a>`:'';
-    const nZero = c.repair.rows.filter((r,i)=>(+effRow(c,i,'b')===0)).length;
+    const nZero = c.repair.rows.filter((r,i)=>(+effRow(c,i,'b')===0)).length + (editable?loadAdd(c.id).filter(r=>+r.b===0).length:0);
     const warn = nZero ? `<p class="repwarn">⚠ ${nZero} line${nZero>1?'s are':' is'} unpriced (red £0) — still to be sourced. The profit below is <b>best-case</b> until these are filled in.</p>` : '';
     h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span>
       <span class="sec-note">${c.repair.note}</span></div><div class="sec-body"><table>
       <thead><tr><th>Item</th><th class="num">DIY (best)</th><th class="num">Garage (worst)</th></tr></thead>
-      <tbody>${rows}<tr class="sub"><td>Repair subtotal ${reset}</td><td class="num" id="subBest">${fmt(sb)}</td><td class="num" id="subWorst">${fmt(sw)}</td></tr></tbody></table>
+      <tbody>${rows}${custRows}${addBtn}<tr class="sub"><td>Repair subtotal ${reset}</td><td class="num" id="subBest">${fmt(sb)}</td><td class="num" id="subWorst">${fmt(sw)}</td></tr></tbody></table>
       ${warn}
-      ${editable?`<p class="edithint">Every figure is a real sourced price with a link — tap any to change it (a garage quote, a cheaper find); the profit updates instantly and saves on <b>this device</b>. Red £0 = not sourced yet. Tell me a figure to bake it in for every device.</p>`:''}</div></section>`;
+      ${editable?`<p class="edithint">Every figure is a real sourced price with a link — tap any to change it, or <b>+ add a repair line</b> for a cost we didn't foresee (with its own link + DIY/Garage price). Saved on <b>this device</b>; red £0 = not sourced yet. Tell me a figure to bake it in for every device.</p>`:''}</div></section>`;
   } else if(c.pendingRepair){
     h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span></div>
       <div class="sec-body"><div class="pending">${c.pendingRepair}</div></div></section>`;
@@ -520,8 +546,9 @@ function renderCar(c){
 /* ---- editable repair: recompute subtotals, persist, refresh calc ---- */
 function wireRepairEdits(c){
   function recalc(){
+    // default-row overrides
     const ov=loadOv(c.id);
-    document.querySelectorAll('.repcell').forEach(inp=>{
+    document.querySelectorAll('.repcell[data-i]').forEach(inp=>{
       const i=+inp.dataset.i, col=inp.dataset.col;
       let val=parseFloat(inp.value); if(isNaN(val)||val<0) val=0;
       const def=col==='b'?c.repair.rows[i][1]:c.repair.rows[i][2];
@@ -530,7 +557,19 @@ function wireRepairEdits(c){
       else ov[i][col]=Math.round(val);
     });
     saveOv(c.id, ov);
-    // red-zero styling per input
+    // custom rows
+    const add=loadAdd(c.id);
+    document.querySelectorAll('.customrow').forEach(tr=>{
+      const nameI=tr.querySelector('.cust-name'), j=+nameI.dataset.ci;
+      if(!add[j]) add[j]={name:'',link:'',b:0,w:0};
+      add[j].name=nameI.value;
+      add[j].link=tr.querySelector('.cust-link').value.trim();
+      const bI=tr.querySelector('.cust-cost[data-col="b"]'), wI=tr.querySelector('.cust-cost[data-col="w"]');
+      add[j].b=Math.max(0,Math.round(parseFloat(bI.value)||0));
+      add[j].w=Math.max(0,Math.round(parseFloat(wI.value)||0));
+    });
+    saveAdd(c.id, add);
+    // red-zero styling per cost input
     document.querySelectorAll('.repcell').forEach(inp=>{ inp.classList.toggle('zero', parseFloat(inp.value)===0 || inp.value===''); });
     const sb=effSub(c,'b'), sw=effSub(c,'w');
     document.getElementById('subBest').textContent=fmt(sb);
@@ -539,14 +578,15 @@ function wireRepairEdits(c){
     if(td) td.textContent=fmt(sb); if(tg) tg.textContent=fmt(sw);
     REPAIR_LIVE={diy:sb,garage:sw};
     if(REPAINT) REPAINT();
-    // toggle reset link visibility
     const rl=document.querySelector('.resetlink');
     if(hasOv(c.id) && !rl){ const cell=document.querySelector('tr.sub td:first-child'); if(cell) cell.insertAdjacentHTML('beforeend',` <a class="resetlink" onclick="resetRepair('${c.id}')">reset to defaults</a>`); }
     if(!hasOv(c.id) && rl){ rl.remove(); }
   }
-  document.querySelectorAll('.repcell').forEach(inp=>{ inp.addEventListener('input',recalc); });
+  document.querySelectorAll('.repcell, .cust-name, .cust-link').forEach(inp=>{ inp.addEventListener('input',recalc); });
 }
-function resetRepair(id){ clearOv(id); const c=CARS.find(x=>x.id===id); if(c) renderCar(c); }
+function addRow(id){ const a=loadAdd(id); a.push({name:'',link:'',b:0,w:0}); saveAdd(id,a); const c=CARS.find(x=>x.id===id); if(c) renderCar(c); }
+function removeRow(id,j){ const a=loadAdd(id); a.splice(j,1); saveAdd(id,a); const c=CARS.find(x=>x.id===id); if(c) renderCar(c); }
+function resetRepair(id){ clearOv(id); clearAdd(id); const c=CARS.find(x=>x.id===id); if(c) renderCar(c); }
 
 /* ---- interactive calc ---- */
 function wireCalc(c){
