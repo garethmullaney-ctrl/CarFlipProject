@@ -70,6 +70,7 @@
   .summary .ys{color:var(--muted);font-weight:500}
   .summary .lm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px}
   .pend{font-family:var(--mono);font-size:11px;color:var(--faint);font-style:italic}
+  .dash{color:var(--faint)}
   .tnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.55;max-width:80ch}
   .archwrap{margin-top:26px;border-top:1px solid var(--line);padding-top:8px}
   .archtoggle{font-family:var(--mono);font-size:12px;color:var(--muted);background:none;border:0;cursor:pointer;padding:8px 0;letter-spacing:.04em}
@@ -318,7 +319,7 @@ function costsOf(c){
 function rowHtml(c){
   const vc=vColor(c.verdict), vt=vTint(c.verdict);
   const costs=costsOf(c);
-  const bidShown = c.bin ? (fmt(c.currentBid)+'<div class="lm">BIN '+fmt(c.bin)+'</div>') : fmt(c.currentBid);
+  const binCell = c.bin ? fmt(c.bin) : '<span class="dash">—</span>';
   let costCell='<span class="pend">pending</span>', profCell='<span class="pend">—</span>';
   if(costs!=null){
     const profit=c.resale.mid - c.currentBid - costs;
@@ -329,14 +330,15 @@ function rowHtml(c){
   return `<tr onclick="go('${c.id}')">
     <td class="vh"><b>${c.title}</b> <span class="ys">${c.yr}</span><div class="lm">Lot ${c.lot} · ${c.sale}</div></td>
     <td>${c.cat}</td>
-    <td class="num">${bidShown}</td>
+    <td class="num">${fmt(c.currentBid)}</td>
+    <td class="num">${binCell}</td>
     <td class="num">${fmt(c.resale.mid)}</td>
     <td class="num">${costCell}</td>
     <td class="num">${profCell}</td>
     <td><span class="vchip" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</span></td>
   </tr>`;
 }
-const HEAD=`<thead><tr><th>Vehicle</th><th>Cat</th><th class="num">Current bid</th><th class="num">Exp. resale</th><th class="num">Costs to fix</th><th class="num">Profit @ bid</th><th>Call</th></tr></thead>`;
+const HEAD=`<thead><tr><th>Vehicle</th><th>Cat</th><th class="num">Current bid</th><th class="num">Buy now</th><th class="num">Exp. resale</th><th class="num">Costs to fix</th><th class="num">Profit @ bid</th><th>Call</th></tr></thead>`;
 function renderHome(){
   document.getElementById('backBtn').classList.remove('show');
   const active=CARS.filter(c=>!c.archived), archived=CARS.filter(c=>c.archived);
@@ -402,7 +404,8 @@ function renderCar(c){
   h += `<section><div class="sec-head"><span class="sec-num">00</span><span class="sec-title">Bid guide</span>
     <span class="sec-note">${c.model?('for a '+fmt(c.model.targetProfit)+' target profit'):(c.bidGuideNote||'')}</span></div>
     <div class="sec-body">${scale(c.bidGuide,bgLabs)}
-    <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">Current bid${c.bin?' · BIN':''}</span><span class="v">${fmt(c.currentBid)}${c.bin?' · '+fmt(c.bin):''}</span></div></div></section>`;
+    <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">Current bid</span><span class="v">${fmt(c.currentBid)}</span></div>
+    ${c.bin?`<div class="drow" style="border:0;padding-top:2px"><span class="k">Buy now (BIN)</span><span class="v">${fmt(c.bin)}</span></div>`:''}</div></section>`;
 
   // copart + expected sale
   h += `<div class="grid2">
