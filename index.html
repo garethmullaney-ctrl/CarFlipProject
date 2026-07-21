@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copart Flip — Deal Book</title>
+<style>
+  :root{
+    --bg:#E7EAEC; --card:#FFFFFF; --ink:#15181B; --muted:#5E6870; --faint:#8b949c;
+    --line:#D8DCE0; --line2:#EAECEF;
+    --petrol:#0C6E6B; --petrol-tint:#E3F0EF;
+    --go:#1E8A54; --go-tint:#E4F3EA;
+    --caution:#B9770B; --caution-tint:#FBF0DC;
+    --stop:#C03A2E; --stop-tint:#FBE7E4;
+    --watch:#3B5BA5; --watch-tint:#E7ECF7;
+    --mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(14px,3vw,36px)}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  a{color:var(--petrol)}
+
+  /* top nav */
+  .topnav{position:sticky;top:0;z-index:20;background:rgba(231,234,236,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .topnav .row{max-width:1080px;margin:0 auto;padding:11px clamp(14px,3vw,36px);display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;letter-spacing:-.02em;font-size:15px;cursor:pointer;text-decoration:none;color:var(--ink)}
+  .brand .b2{color:var(--petrol)}
+  .back{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;cursor:pointer;display:none}
+  .back.show{display:inline}
+  .navspace{flex:1}
+  .navmeta{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--petrol);font-weight:600}
+
+  /* ---------- HOME ---------- */
+  .home-mast{padding:8px 0 22px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+  .home-mast h1{font-size:clamp(30px,6vw,52px);line-height:.98;letter-spacing:-.035em;font-weight:800;margin-top:6px}
+  .home-mast p{color:var(--muted);margin-top:10px;max-width:56ch;font-size:14.5px}
+  .sumstrip{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:18px}
+  .sumstrip .s{font-family:var(--mono)}
+  .sumstrip .s b{font-size:22px;font-weight:800;letter-spacing:-.02em;display:block;line-height:1.1}
+  .sumstrip .s span{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+
+  .cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.cardgrid{grid-template-columns:1fr}}
+  .ccard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px;cursor:pointer;
+    transition:border-color .12s,transform .12s;display:flex;flex-direction:column;gap:2px;position:relative}
+  .ccard:hover{border-color:var(--ink);transform:translateY(-1px)}
+  .ccard .catrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .cbadge{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;padding:3px 8px;border-radius:2px;border:1px solid var(--line);color:var(--muted)}
+  .vchip{font-family:var(--mono);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:2px;border:1.5px solid}
+  .ccard h3{font-size:19px;letter-spacing:-.02em;font-weight:700;line-height:1.1}
+  .ccard .csub{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
+  .ccard .cfig{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line2)}
+  .ccard .cfig .f .n{font-family:var(--mono);font-size:16px;font-weight:700;letter-spacing:-.02em}
+  .ccard .cfig .f .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .ccard .open{font-family:var(--mono);font-size:11.5px;color:var(--petrol);margin-top:14px}
+  .tablewrap{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow-x:auto}
+  table.summary{width:100%;border-collapse:collapse;font-size:14px;min-width:660px}
+  table.summary th{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);font-weight:600}
+  table.summary th.num,table.summary td.num{text-align:right}
+  table.summary td{padding:14px 16px;border-bottom:1px solid var(--line2);vertical-align:middle;font-variant-numeric:tabular-nums}
+  table.summary tbody tr{cursor:pointer;transition:background .1s}
+  table.summary tbody tr:hover{background:var(--petrol-tint)}
+  table.summary tbody tr:last-child td{border-bottom:0}
+  .summary .vh b{font-weight:700;font-size:15px}
+  .summary .ys{color:var(--muted);font-weight:500}
+  .summary .lm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px}
+  .pend{font-family:var(--mono);font-size:11px;color:var(--faint);font-style:italic}
+  .tnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.55;max-width:80ch}
+
+  /* ---------- DETAIL (shared with SE sheet) ---------- */
+  .mast{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 20px;justify-content:space-between;padding:6px 0 16px;border-bottom:2px solid var(--ink)}
+  h1.dt{font-size:clamp(24px,4.2vw,38px);line-height:1.02;letter-spacing:-.03em;font-weight:800;margin-top:4px}
+  h1.dt .yr{color:var(--muted);font-weight:500}
+  .lotline{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:8px}
+  .lotline a{color:var(--petrol);text-decoration:none;border-bottom:1px solid var(--petrol)}
+  .verdict-chip{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:2px;white-space:nowrap;border:1.5px solid}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 24px}
+  .chip{font-family:var(--mono);font-size:11.5px;padding:5px 10px;border-radius:2px;background:var(--card);border:1px solid var(--line);color:var(--ink);display:flex;align-items:center;gap:6px}
+  .chip.good{background:var(--go-tint);border-color:#bfe0cd;color:#14653c}
+  .chip.warn{background:var(--caution-tint);border-color:#e9cd97;color:#8a5906}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--go)}
+  .chip.warn .dot{background:var(--caution)}
+
+  section{background:var(--card);border:1px solid var(--line);border-radius:5px;margin-bottom:14px;overflow:hidden}
+  .sec-head{display:flex;align-items:baseline;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line2)}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--faint);font-weight:600}
+  .sec-title{font-size:14px;font-weight:700}
+  .sec-note{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-left:auto}
+  .sec-body{padding:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}.mast{align-items:flex-start}}
+
+  .drow{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .drow:last-child{border-bottom:0}
+  .drow .k{color:var(--muted)} .drow .v{font-family:var(--mono);text-align:right;font-weight:500}
+  .drow.tot{border-top:1.5px solid var(--ink);border-bottom:0;margin-top:4px;padding-top:9px;font-weight:700}
+  .neg{color:var(--stop)}
+  .subhead{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:2px 0 8px;font-weight:600}
+
+  .scale{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .scale .cell{border:1px solid var(--line);border-radius:4px;padding:12px;text-align:center}
+  .scale .cell.mid{border-color:var(--petrol);background:var(--petrol-tint)}
+  .scale .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .scale .big{font-family:var(--mono);font-size:22px;font-weight:700;margin-top:3px;letter-spacing:-.02em}
+  .scale .sub{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:2px}
+
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .ax{font-family:var(--mono);font-size:10px;fill:var(--faint)}
+  .gl{stroke:var(--line2);stroke-width:1}
+
+  ul.clean{list-style:none;font-size:13px}
+  ul.clean li{padding:6px 0 6px 22px;position:relative;border-bottom:1px solid var(--line2);color:var(--ink)}
+  ul.clean li:last-child{border-bottom:0}
+  ul.clean li::before{content:"";position:absolute;left:2px;top:12px;width:8px;height:8px;border-radius:50%}
+  li.ok::before{background:var(--go)} li.watch::before{background:var(--caution)} li.info::before{background:var(--petrol)}
+  li.bad::before{background:var(--stop)}
+  .callout{background:var(--go-tint);border:1px solid #bfe0cd;border-radius:4px;padding:11px 13px;font-size:13px;margin-top:12px;color:#14532e}
+  .callout b{color:#0f3d22}
+  .callout.warn{background:var(--caution-tint);border-color:#e9cd97;color:#7a4f08}
+  .callout.warn b{color:#5c3b06}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;padding:0 0 8px;font-weight:600;border-bottom:1px solid var(--line)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:9px 0;border-bottom:1px solid var(--line2);text-align:right;font-family:var(--mono);vertical-align:top}
+  tbody td:first-child{text-align:left;font-family:var(--sans)}
+  tbody tr.sub td{border-bottom:1.5px solid var(--ink);font-weight:700}
+  .partlink{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--petrol);text-decoration:none;border-bottom:1px solid #a9d0cf;margin-top:3px}
+  .tag{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:2px;background:var(--line2);color:var(--muted);margin-left:6px}
+  .tag.known{background:var(--caution-tint);color:#8a5906}
+
+  .bl{border:2px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--card);margin-bottom:14px}
+  .bl-head{background:var(--ink);color:#fff;padding:16px 20px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between}
+  .bl-head h2{font-size:17px;letter-spacing:-.01em;font-weight:800}
+  .bl-head .sub{font-family:var(--mono);font-size:11.5px;color:#aeb8c0}
+  .bl-body{padding:20px}
+  .controls{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}
+  @media(max-width:620px){.controls{grid-template-columns:1fr}}
+  .slabel{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:6px}
+  .slabel .bv{font-size:24px;font-weight:700;color:var(--ink)}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:var(--line);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--ink);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--ink);border:3px solid #fff;cursor:pointer}
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .toggle button{font-family:var(--mono);font-size:12px;padding:9px 14px;border:0;background:var(--card);color:var(--muted);cursor:pointer}
+  .toggle button.on{background:var(--ink);color:#fff;font-weight:600}
+  .togwrap{text-align:right}
+  .togwrap .cap{font-family:var(--mono);font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
+  .allin{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:14px 0 4px;padding-top:14px;border-top:1px solid var(--line2)}
+  .allin b{color:var(--ink);font-size:14px}
+  .profitgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .pcard{border:1px solid var(--line);border-radius:5px;padding:14px 12px;text-align:center}
+  .pcard .plab{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .pcard .psale{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:1px}
+  .pcard .pval{font-family:var(--mono);font-size:26px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .pbar{height:6px;border-radius:3px;background:var(--line2);margin-top:10px;overflow:hidden}
+  .pbar i{display:block;height:100%;border-radius:3px}
+  .verdict{margin-top:16px;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:5px;border:1.5px solid}
+  .verdict .vt{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+  .verdict .vd{font-size:13px;line-height:1.45}
+
+  .pending{background:var(--line2);border:1px dashed var(--line);border-radius:5px;padding:16px;font-size:13px;color:var(--muted);font-family:var(--mono)}
+  .lede{font-size:14.5px;line-height:1.55;color:var(--ink)}
+
+  footer{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--faint);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+  .src{max-width:640px}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="row">
+  <a class="brand" onclick="go('')">Copart<span class="b2">·</span>Flip <span style="color:var(--faint);font-weight:500">Deal Book</span></a>
+  <a class="back" id="backBtn" onclick="go('')">← all cars</a>
+  <span class="navspace"></span>
+  <span class="navmeta" id="navMeta"></span>
+</div></nav>
+
+<div class="wrap"><div id="app"></div>
+  <footer>
+    <span class="src">Working appraisals from Copart lot data, DVSA MOT history, eBay sold comps &amp; live parts pricing. Figures are estimates — firm up on inspection. Not financial advice.</span>
+    <span>Deal Book v1 · 21 Jul 2026</span>
+  </footer>
+</div>
+
+<script>
+const fmt = n => (n<0?'−£':'£') + Math.abs(Math.round(n)).toLocaleString('en-GB');
+const SCAN_DATE='21 Jul (midday)';
+const VC = {go:'--go',ok:'--caution',thin:'--stop',stop:'--stop',pass:'--stop',watch:'--watch',review:'--watch'};
+const VT = {go:'GO',ok:'OK',thin:'THIN',stop:'STOP',pass:'PASS',watch:'WATCH',review:'REVIEW'};
+function vColor(v){return getComputedStyle(document.documentElement).getPropertyValue(VC[v]||'--muted');}
+function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint',stop:'--stop-tint',pass:'--stop-tint',watch:'--watch-tint',review:'--watch-tint'};return getComputedStyle(document.documentElement).getPropertyValue(m[v]||'--line2');}
+
+/* ============ DATA ============ */
+const CARS = [
+{
+  id:'polo-se', lot:'59090246', title:'2010 VW Polo 1.4 SE', yr:'5dr', cat:'Cat N',
+  sale:'Wed 22 Jul 2026', loc:'Bristol', currentBid:225, verdict:'go',
+  headline:'Genuine 52k, fresh MOT, no fault — the clean one. DIY-friendly rear-end repair.',
+  chips:[['good','Runs & drives'],['good','52k genuine (MOT-verified)'],['good','MOT to Jun 2027'],
+    ['good','Petrol · ULEZ-exempt'],['good','Physical V5 · 2 keys'],['good','No engine-fault flag'],
+    ['','5-speed manual'],['','No VAT on hammer']],
+  bidGuide:{safe:106,target:977,ceiling:2003},
+  fees:[['Buyer fee',135],['Internet bid fee',35],['Lot retrieval fee',50],['VAT on fees (20%)',44],['VAT on hammer','£0 · margin scheme']],
+  feesTotal:264, transport:'£120–200 independent · Copart quote £437 (avoid)',
+  resale:{low:2880,mid:3320,high:3915,method:['2010 Polo 1.4 SE sold £3,750 & £4,000','Lower-spec 1.2 / rougher £1,020–1,800','Clean £3,600/4,000/4,500 less Cat N 13–20%']},
+  history:{vrn:'WG10 GFX',motTo:'3 Jun 2027',
+    trail:[[2013,18968],[2014,24862],[2015,28403],[2016,29622],[2017,30555],[2018,33381],[2019,36429],[2020,38676],[2021,40341],[2022,41643],[2023,42688],[2025,42966],[2026,51396]],
+    trailNote:'<b>No clocking.</b> Steady climb 18,968→51,396, matching the clock. A fresh MOT pass means no engine light (auto-fail since 2018) — no hidden fault.',
+    notes:[['ok','Spare wheel present'],['ok','Number of keys: 2'],['info','Full mileage history (genuine)'],['ok','No engine-fault / warning-light flag']],
+    advisories:[['watch','2× tyres worn near legal limit'],['watch','Front brakes fluctuating (not excessive)'],['info','Historic: light sill rust, rusty discs (stood)']]},
+  repair:{note:'nearside rear corner', rows:[
+    ['Rear bumper — used, colour-matched black (LC9X)',60,90,'known','https://www.ebay.co.uk/sch/i.html?_nkw=vw+polo+6r+2009-2014+rear+bumper+black+lc9x','find on eBay'],
+    ['Quarter-panel dent & scrape (fill / blend)',0,300,'known','',''],
+    ['2× tyres 185/60 R15, fitted',92,100,'known','https://www.tyre-shopper.co.uk/tyres/185-60-15','budget tyres £46+'],
+    ['Paint & materials (LC9X basecoat + lacquer + primer)',40,120,'known','https://www.rapidpaints.co.uk/products/vw-volkswagen-deep-black-code-lc9x-ready-for-use-basecoat-car-spray-paint','LC9X aerosol £12.45'],
+    ['Bumper clips / absorber / fittings',15,25,'',''],
+    ['Rear light NS + crash bar (only if damaged)',0,55,'','https://www.ebay.co.uk/sch/i.html?_nkw=vw+polo+6r+2009-2014+rear+light+passenger','light £16–25']],
+    subBest:207, subWorst:690},
+  model:{fees:264,transport:150,recommission:40,repairDiy:207,repairGarage:690,targetProfit:1200,
+    resale:{low:2880,mid:3320,high:3915},bidDefault:500}
+},
+{
+  id:'rs6', lot:'60546026', title:'2016 Audi RS6', yr:'4.0T Quattro', cat:'Cat U',
+  sale:'Today, 21 Jul · 11:30', loc:'Sandtoft', currentBid:15200, verdict:'watch',
+  headline:'The aspiration. Cat U (top resale), but the live auction is still climbing — not one to bid on yet.',
+  chips:[['good','Cat U — no write-off marker'],['good','Petrol V8 · ULEZ-exempt'],['','81,656 miles'],
+    ['warn','Reserve not yet met'],['warn','Live today — price still moving']],
+  bidGuide:{safe:12079,target:19659,ceiling:24000},
+  bidGuideNote:'from the resale model — for reference, not a recommendation to bid',
+  fees:[['Buyer fee (tier)','~£600+'],['Internet bid fee',35],['Lot retrieval fee',50],['VAT on fees','20%']],
+  feesTotal:null, transport:'£150–250 independent',
+  resale:{low:26000,mid:30000,high:34000,method:['Clean 2016 RS6 Performance retail ~£30–36k','Cat U keeps near-full money if damage is light','A different game to the Polos — big absolute margin, big absolute risk']},
+  lede:'This is the build-toward car, not a buy-now. It’s Cat U so it holds its money, but the pre-bid was never the real price — the <b>live auction is where the number is made</b>, and at £15,200 with the reserve still unmet it’s clearly still moving. We watch this one; we don’t stretch for it until the fund and the nerve are there.',
+  pendingHistory:'Full MOT trail, notes and damage workup not pulled yet — it’s a watch, not a live bid. Gathered on the day you decide to go for one.',
+  pendingRepair:'No repair breakdown yet — Cat U damage is typically light/cosmetic, but we’d assess parts once it’s a real target.',
+  model:null
+},
+{
+  id:'polo-match', lot:'60564156', title:'2013 VW Polo 1.4 Match', yr:'5dr DSG', cat:'Cat N',
+  sale:'Thu 23 Jul 2026', loc:'Newbury', currentBid:975, verdict:'pass',
+  headline:'Nicer spec, but stacks up strikes — DSG, no V5, MOT nearly out, and already bid past sensible.',
+  chips:[['good','92k genuine'],['warn','DSG auto — mechatronic risk'],['warn','No V5 logbook'],
+    ['warn','MOT out ~6 weeks'],['warn','Already bid £975 (over max)']],
+  bidGuide:{safe:-853,target:426,ceiling:1789},
+  bidGuideNote:'sensible max is ~£426 — it’s already at £975',
+  resale:{low:3520,mid:4067,high:4698,method:['2013 Polo Match, clean ~£4,400–5,400','Cat N discount 13–20%']},
+  history:{vrn:'DF63 GFE',motTo:'5 Sep 2026',
+    notes:[['bad','DSG dry-clutch — known mechatronic failure (£1,000+)'],['bad','No V5 — DVLA replacement (£25 + wait)'],['info','Passed MOT Aug 2025 — no engine light then'],['watch','MOT expires ~6 weeks — needs a fresh test']],
+    advisories:[['info','92k genuine, unbroken trail — not clocked']]},
+  lede:'Nothing here is fraudulent — the mileage is genuine and it passed last August. But it’s a <b>DSG automatic</b> (the dry-clutch mechatronic is the exact hidden-mechanical risk we’re going Cat N to avoid), it has <b>no logbook</b>, its <b>MOT runs out in about six weeks</b>, and it’s <b>already bid to £975 — well over its ~£426 sensible max</b>. Any one is a caution; together it’s a pass.',
+  pendingRepair:'Not worked up — it’s a pass, so no parts breakdown.',
+  model:null
+},
+{
+  id:'boxster', lot:'55253806', title:'2011 Porsche Boxster', yr:'987.2 S', cat:'Cat N',
+  sale:'Mon 27 Jul 2026', loc:'—', currentBid:2900, bin:6500, verdict:'review',
+  headline:'Early candidate — headline figures only. Asymmetric engine risk on these; full workup pending.',
+  chips:[['','Cat N'],['warn','Did not run on lot (ran Apr ’26)'],['','79,722 miles'],['','BIN £6,500']],
+  bidGuide:{safe:2140,target:5104,ceiling:8000},
+  bidGuideNote:'earlier model figures — to be refreshed',
+  resale:{low:9000,mid:11000,high:13000,method:['987.2 Boxster S clean ~£11–14k','Cat N discount applied']},
+  lede:'One of the first cars we looked at, kept here for the record. The 987.2 is a lovely thing, but Boxsters carry <b>asymmetric engine risk</b> (IMS/bore-score reputation) — a great flip if sound, an expensive mistake if not — and this one <b>wasn’t running on the lot</b>. It needs the full treatment (MOT trail, a proper engine story) before it’s more than a maybe.',
+  pendingHistory:'MOT trail and notes not refreshed this round — pull before any move.',
+  pendingRepair:'No repair breakdown — depends entirely on the engine assessment.',
+  model:null
+}
+];
+
+/* ============ RENDER: HOME ============ */
+function costsOf(c){
+  if(!c.model) return null;
+  const M=c.model, rep=M.repairDiy, cont=Math.round(0.15*rep);
+  return M.fees+M.transport+M.recommission+rep+cont;
+}
+function renderHome(){
+  document.getElementById('backBtn').classList.remove('show');
+  document.getElementById('navMeta').textContent = `${CARS.length} cars · bids ${SCAN_DATE}`;
+  const rows = CARS.map(c=>{
+    const vc=vColor(c.verdict), vt=vTint(c.verdict);
+    const costs=costsOf(c);
+    const bidShown = c.bin ? ('BIN '+fmt(c.bin)) : fmt(c.currentBid);
+    let costCell='<span class="pend">pending</span>', profCell='<span class="pend">—</span>';
+    if(costs!=null){
+      const profit=c.resale.mid - c.currentBid - costs;
+      const col=profit>=800?'var(--go)':profit>=250?'var(--caution)':'var(--stop)';
+      costCell=fmt(costs);
+      profCell=`<b style="color:${col};font-weight:800">${fmt(profit)}</b>`;
+    }
+    return `<tr onclick="go('${c.id}')">
+      <td class="vh"><b>${c.title}</b> <span class="ys">${c.yr}</span><div class="lm">Lot ${c.lot} · ${c.sale}</div></td>
+      <td>${c.cat}</td>
+      <td class="num">${bidShown}</td>
+      <td class="num">${fmt(c.resale.mid)}</td>
+      <td class="num">${costCell}</td>
+      <td class="num">${profCell}</td>
+      <td><span class="vchip" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</span></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('app').innerHTML = `
+    <header class="home-mast">
+      <div class="eyebrow">Copart UK · salvage flips</div>
+      <h1>The Deal Book</h1>
+      <p>Every car in one view — the current bid set against the money it takes to make good, so you can see the moment a bid runs away from the profit. Tap a row for the full deal sheet.</p>
+    </header>
+    <div class="tablewrap"><table class="summary">
+      <thead><tr><th>Vehicle</th><th>Cat</th><th class="num">Current bid</th><th class="num">Exp. resale</th><th class="num">Costs to fix</th><th class="num">Profit @ bid</th><th>Call</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <p class="tnote">Profit @ bid = expected resale − current bid − costs to make good (DIY route). It shrinks as bids climb — when it turns red, the bid has run away and the car gets discounted. Bids scanned ${SCAN_DATE}; ask me to refresh any time. “Pending” = full workup still to gather.</p>`;
+  window.scrollTo(0,0);
+}
+
+/* ============ RENDER: DETAIL ============ */
+function feesRows(c){
+  if(!c.fees) return '';
+  const rows=c.fees.map(f=>`<div class="drow"><span class="k">${f[0]}</span><span class="v">${typeof f[1]==='number'?fmt(f[1]):f[1]}</span></div>`).join('');
+  const tot=c.feesTotal?`<div class="drow tot"><span class="k">Copart fees total</span><span class="v">${fmt(c.feesTotal)}</span></div>`:'';
+  return `<div class="subhead">Copart charges</div>${rows}${tot}
+    <div class="subhead" style="margin-top:16px">Transport</div>
+    <div class="drow"><span class="k">Bristol → you</span><span class="v">${c.transport||'—'}</span></div>`;
+}
+function scale(o,labs){
+  return `<div class="scale">
+    <div class="cell"><div class="lab">${labs[0]}</div><div class="big">${fmt(o.low!==undefined?o.low:o.safe)}</div></div>
+    <div class="cell mid"><div class="lab">${labs[1]}</div><div class="big">${fmt(o.mid!==undefined?o.mid:o.target)}</div></div>
+    <div class="cell"><div class="lab">${labs[2]}</div><div class="big">${fmt(o.high!==undefined?o.high:o.ceiling)}</div></div></div>`;
+}
+function listBlock(items){return `<ul class="clean">${items.map(i=>`<li class="${i[0]}">${i[1]}</li>`).join('')}</ul>`;}
+
+function renderCar(c){
+  document.getElementById('backBtn').classList.add('show');
+  document.getElementById('navMeta').textContent = 'Lot '+c.lot;
+  const vc=vColor(c.verdict), vt=vTint(c.verdict);
+  let h = `<header class="mast"><div>
+      <div class="eyebrow">Deal Sheet</div>
+      <h1 class="dt">${c.title} <span class="yr">${c.yr}</span></h1>
+      <div class="lotline">LOT <a href="https://www.copart.co.uk/lot/${c.lot}" target="_blank" rel="noopener">${c.lot}</a> · ${c.cat} · ${c.loc} · sells ${c.sale}</div>
+    </div><div class="verdict-chip" id="mastVerdict" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</div></header>`;
+
+  h += `<div class="chips">${c.chips.map(ch=>`<span class="chip ${ch[0]}"><span class="dot"></span>${ch[1]}</span>`).slice(0).map((s,i)=>c.chips[i][0]?s:`<span class="chip">${c.chips[i][1]}</span>`).join('')}</div>`;
+
+  if(c.lede) h += `<section><div class="sec-body"><p class="lede">${c.lede}</p></div></section>`;
+
+  // bid guide
+  const bgLabs = c.model?['Safe max','Target max','Ceiling']:['Safe','Model max','Ceiling'];
+  h += `<section><div class="sec-head"><span class="sec-num">00</span><span class="sec-title">Bid guide</span>
+    <span class="sec-note">${c.model?'for a £1,200 target profit':(c.bidGuideNote||'')}</span></div>
+    <div class="sec-body">${scale(c.bidGuide,bgLabs)}
+    <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">${c.bin?'Buy-it-now':'Current bid'}</span><span class="v">${c.bin?fmt(c.bin):fmt(c.currentBid)}</span></div></div></section>`;
+
+  // copart + expected sale
+  h += `<div class="grid2">
+    <section><div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Copart &amp; costs</span></div>
+      <div class="sec-body">${feesRows(c)}</div></section>
+    <section><div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Expected sale</span></div>
+      <div class="sec-body"><div class="subhead">Resale (repaired, Cat N/U)</div>
+      ${scale(c.resale,['Low','Expected','High'])}
+      <div class="subhead" style="margin-top:16px">Method</div>${listBlock(c.resale.method.map(m=>['info',m]))}</div></section></div>`;
+
+  // history
+  if(c.history){
+    h += `<section><div class="sec-head"><span class="sec-num">03</span><span class="sec-title">History &amp; provenance</span>
+      <span class="sec-note">VRN ${c.history.vrn} · MOT to ${c.history.motTo}</span></div><div class="sec-body"><div class="grid2"><div>`;
+    if(c.history.trail){
+      h += `<div class="subhead">Mileage — MOT trail (genuine)</div><svg id="mileageChart" viewBox="0 0 520 190"></svg>
+        <div class="callout">${c.history.trailNote}</div>`;
+    } else {
+      h += `<div class="subhead">MOT</div><div class="drow"><span class="k">Valid until</span><span class="v">${c.history.motTo}</span></div>`;
+    }
+    h += `</div><div><div class="subhead">Copart notes</div>${listBlock(c.history.notes)}
+      <div class="subhead" style="margin-top:16px">MOT advisories</div>${listBlock(c.history.advisories)}</div></div></div></section>`;
+  } else if(c.pendingHistory){
+    h += `<section><div class="sec-head"><span class="sec-num">03</span><span class="sec-title">History &amp; provenance</span></div>
+      <div class="sec-body"><div class="pending">${c.pendingHistory}</div></div></section>`;
+  }
+
+  // repair
+  if(c.repair){
+    const rows=c.repair.rows.map(r=>{
+      const link=r[4]?`<br><a class="partlink" href="${r[4]}" target="_blank" rel="noopener">${r[5]} →</a>`:'';
+      const tag=r[3]?`<span class="tag known">${r[3]}</span>`:`<span class="tag">potential</span>`;
+      return `<tr><td>${r[0]}${tag}${link}</td><td>${fmt(r[1])}</td><td>${fmt(r[2])}</td></tr>`;
+    }).join('');
+    h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span>
+      <span class="sec-note">${c.repair.note}</span></div><div class="sec-body"><table>
+      <thead><tr><th>Item</th><th>DIY (best)</th><th>Garage (worst)</th></tr></thead>
+      <tbody>${rows}<tr class="sub"><td>Repair subtotal</td><td>${fmt(c.repair.subBest)}</td><td>${fmt(c.repair.subWorst)}</td></tr></tbody></table></div></section>`;
+  } else if(c.pendingRepair){
+    h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span></div>
+      <div class="sec-body"><div class="pending">${c.pendingRepair}</div></div></section>`;
+  }
+
+  // bottom line (interactive) or static verdict
+  if(c.model){
+    h += `<div class="bl"><div class="bl-head"><h2>Bottom line — what you'd make</h2>
+      <span class="sub">drag your bid · toggle who does the bodywork</span></div><div class="bl-body">
+      <div class="controls">
+        <div><div class="slabel"><span>Your winning bid</span><span class="bv mono" id="bidOut"></span></div>
+          <input type="range" id="bid" min="0" max="1500" step="25" value="${c.model.bidDefault}"></div>
+        <div class="togwrap"><span class="cap">Who does the bodywork?</span>
+          <div class="toggle" id="repToggle">
+            <button data-r="diy" class="on">DIY · ${fmt(c.model.repairDiy)}</button>
+            <button data-r="garage">Garage · ${fmt(c.model.repairGarage)}</button></div></div></div>
+      <div class="allin">All-in to buy &amp; fix: <b id="allInOut"></b><span id="allInBreak" style="color:var(--faint)"></span></div>
+      <div class="profitgrid" id="profitGrid"></div>
+      <div class="verdict" id="verdict"><span class="vt" id="verdictT"></span><span class="vd" id="verdictD"></span></div>
+    </div></div>`;
+  }
+
+  document.getElementById('app').innerHTML = h;
+  window.scrollTo(0,0);
+  if(c.history&&c.history.trail) drawMileage(c.history.trail);
+  if(c.model) wireCalc(c);
+}
+
+/* ---- interactive calc ---- */
+function wireCalc(c){
+  const M=c.model; let bid=M.bidDefault, route='diy';
+  function paint(){
+    const repair=route==='diy'?M.repairDiy:M.repairGarage;
+    const cont=Math.round(0.15*repair);
+    const allIn=bid+M.fees+M.transport+M.recommission+repair+cont;
+    const P={low:M.resale.low-allIn,mid:M.resale.mid-allIn,high:M.resale.high-allIn};
+    document.getElementById('bidOut').textContent=fmt(bid);
+    document.getElementById('allInOut').textContent=fmt(allIn);
+    document.getElementById('allInBreak').textContent=`  = bid ${fmt(bid)} + fees ${fmt(M.fees)} + transport ${fmt(M.transport)} + repair ${fmt(repair)} + recommission ${fmt(M.recommission)} + contingency ${fmt(cont)}`;
+    const pct=(bid/1500*100).toFixed(1);
+    document.getElementById('bid').style.background=`linear-gradient(90deg,var(--petrol) 0%,var(--petrol) ${pct}%,var(--line) ${pct}%)`;
+    const order=[['low','Low',M.resale.low],['mid','Expected',M.resale.mid],['high','High',M.resale.high]];
+    const maxAbs=Math.max(2000,...Object.values(P).map(v=>Math.abs(v)));
+    document.getElementById('profitGrid').innerHTML=order.map(([k,lab,sale])=>{
+      const v=P[k], col=v>=800?'var(--go)':v>=250?'var(--caution)':'var(--stop)';
+      const w=Math.max(3,Math.min(100,Math.abs(v)/maxAbs*100));
+      return `<div class="pcard"><div class="plab">${lab} resale</div><div class="psale">${fmt(sale)}</div>
+        <div class="pval" style="color:${col}">${fmt(v)}</div><div class="pbar"><i style="width:${w}%;background:${col}"></i></div></div>`;
+    }).join('');
+    const med=P.mid; let t,d,col,bg,bd;
+    if(med>=M.targetProfit){t='GO';d=`Clears your £1,200 target in the expected case (${fmt(med)}). Strong at this bid.`;col='var(--go)';bg='var(--go-tint)';bd='#bfe0cd';}
+    else if(med>=600){t='OK';d=`Makes ${fmt(med)} expected — short of £1,200 but a fair margin.`;col='var(--caution)';bg='var(--caution-tint)';bd='#e9cd97';}
+    else if(med>=0){t='THIN';d=`Only ${fmt(med)} expected — margin's gone unless resale lands high.`;col='var(--stop)';bg='var(--stop-tint)';bd='#eebbb4';}
+    else{t='STOP';d=`Loses money in the expected case (${fmt(med)}). Too much to pay.`;col='var(--stop)';bg='var(--stop-tint)';bd='#eebbb4';}
+    const vEl=document.getElementById('verdict');vEl.style.background=bg;vEl.style.borderColor=bd;
+    document.getElementById('verdictT').textContent=t;document.getElementById('verdictT').style.color=col;
+    document.getElementById('verdictD').textContent=d;
+    const mv=document.getElementById('mastVerdict');mv.textContent=t+' @ '+fmt(bid);mv.style.color=col;mv.style.borderColor=col;mv.style.background=bg;
+  }
+  document.getElementById('bid').addEventListener('input',e=>{bid=+e.target.value;paint();});
+  document.querySelectorAll('#repToggle button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#repToggle button').forEach(x=>x.classList.remove('on'));b.classList.add('on');route=b.dataset.r;paint();}));
+  paint();
+}
+
+/* ---- mileage svg ---- */
+function drawMileage(data){
+  const W=520,H=190,L=44,R=10,T=14,B=26;
+  const xs=data.map(d=>d[0]),ys=data.map(d=>d[1]);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y1=Math.max(...ys);
+  const px=v=>L+(v-x0)/(x1-x0)*(W-L-R), py=v=>T+(1-v/(y1*1.08))*(H-T-B);
+  let g='';[0,20000,40000].forEach(v=>{const y=py(v);
+    g+=`<line class="gl" x1="${L}" y1="${y}" x2="${W-R}" y2="${y}"/><text class="ax" x="${L-6}" y="${y+3}" text-anchor="end">${v/1000?v/1000+'k':'0'}</text>`;});
+  [x0,2018,2023,x1].forEach(v=>{g+=`<text class="ax" x="${px(v)}" y="${H-8}" text-anchor="middle">'${String(v).slice(2)}</text>`;});
+  const line=data.map((d,i)=>(i?'L':'M')+px(d[0]).toFixed(1)+' '+py(d[1]).toFixed(1)).join(' ');
+  const area=`M${px(x0)} ${py(0)} `+data.map(d=>'L'+px(d[0]).toFixed(1)+' '+py(d[1]).toFixed(1)).join(' ')+` L${px(x1)} ${py(0)} Z`;
+  const dots=data.map(d=>`<circle cx="${px(d[0]).toFixed(1)}" cy="${py(d[1]).toFixed(1)}" r="2.4" fill="#0C6E6B"/>`).join('');
+  const last=data[data.length-1];
+  document.getElementById('mileageChart').innerHTML=g+`<path d="${area}" fill="#0C6E6B" opacity="0.08"/><path d="${line}" fill="none" stroke="#0C6E6B" stroke-width="2.2" stroke-linejoin="round"/>`+dots+
+    `<text class="ax" x="${px(last[0])}" y="${py(last[1])-8}" text-anchor="end" style="fill:#15181B;font-weight:700">${last[1].toLocaleString()}</text>`;
+}
+
+/* ---- router ---- */
+function go(id){location.hash = id?('#/'+id):'#/';}
+function route(){
+  const id=(location.hash.replace(/^#\/?/,'')||'').trim();
+  const car=CARS.find(c=>c.id===id);
+  if(car) renderCar(car); else renderHome();
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body>
+</html>
