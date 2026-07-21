@@ -77,6 +77,8 @@
   input.repcell:focus{outline:none;border-color:var(--petrol);background:var(--petrol-tint)}
   input.repcell.zero{color:var(--stop);border-color:#eebbb4;background:var(--stop-tint);font-weight:700}
   .tosource{font-family:var(--mono);font-size:11px;color:var(--stop)}
+  .plate{font-family:var(--mono);font-weight:800;font-size:11px;letter-spacing:.08em;color:#15181B;background:#f4d64e;border:1px solid #cba82f;border-radius:3px;padding:1px 6px;white-space:nowrap;text-transform:uppercase;vertical-align:middle}
+  .plate-lg{font-size:15px;padding:3px 10px;letter-spacing:.1em}
   .cust-name{width:100%;font-size:13.5px;border:1px solid var(--line);border-radius:4px;padding:5px 7px;background:var(--card);color:var(--ink)}
   .cust-name:focus{outline:none;border-color:var(--petrol)}
   .custmeta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:5px}
@@ -372,8 +374,9 @@ function rowHtml(c){
   }
   // "Current bid" column: for a sold lot show the sold price + label, else the live bid
   const bidCell = isSold ? `<b>${fmt(c.sold)}</b><div class="lm">sold price</div>` : fmt(c.currentBid);
+  const reg=(c.vrn||(c.history&&c.history.vrn))||null;
   return `<tr onclick="go('${c.id}')">
-    <td class="vh"><b>${c.title}</b> <span class="ys">${c.yr}</span><div class="lm">Lot ${c.lot} · ${c.sale}</div></td>
+    <td class="vh"><b>${c.title}</b> <span class="ys">${c.yr}</span>${reg?` <span class="plate">${reg}</span>`:''}<div class="lm">Lot ${c.lot} · ${c.sale}</div></td>
     <td>${c.cat}</td>
     <td class="num">${bidCell}</td>
     <td class="num">${binCell}</td>
@@ -438,7 +441,7 @@ function renderCar(c){
   const vc=vColor(c.verdict), vt=vTint(c.verdict);
   let h = `<header class="mast"><div>
       <div class="eyebrow">Deal Sheet</div>
-      <h1 class="dt">${c.title} <span class="yr">${c.yr}</span></h1>
+      <h1 class="dt">${c.title} <span class="yr">${c.yr}</span> ${(c.vrn||(c.history&&c.history.vrn))?`<span class="plate plate-lg">${c.vrn||c.history.vrn}</span>`:''}</h1>
       <div class="lotline">LOT <a href="https://www.copart.co.uk/lot/${c.lot}" target="_blank" rel="noopener">${c.lot}</a> · ${c.cat} · ${c.loc} · sells ${c.sale}</div>
     </div><div class="verdict-chip" id="mastVerdict" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</div></header>`;
 
