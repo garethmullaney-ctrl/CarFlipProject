@@ -75,6 +75,9 @@
   input.repcell{width:64px;font-family:var(--mono);font-size:13px;text-align:right;border:1px solid var(--line);border-radius:4px;padding:3px 5px;background:var(--card);color:var(--ink);-moz-appearance:textfield}
   input.repcell:hover{border-color:var(--muted)}
   input.repcell:focus{outline:none;border-color:var(--petrol);background:var(--petrol-tint)}
+  input.repcell.zero{color:var(--stop);border-color:#eebbb4;background:var(--stop-tint);font-weight:700}
+  .tosource{font-family:var(--mono);font-size:11px;color:var(--stop)}
+  .repwarn{font-family:var(--mono);font-size:11.5px;color:#8a2a20;background:var(--stop-tint);border:1px solid #eebbb4;border-radius:5px;padding:9px 12px;margin-top:12px;line-height:1.55}
   .edithint{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:12px;line-height:1.55}
   .resetlink{font-family:var(--mono);font-size:11px;color:var(--petrol);cursor:pointer;margin-left:8px;font-weight:400}
   .resetlink:hover{text-decoration:underline}
@@ -227,15 +230,15 @@ const CARS = [
     trailNote:'<b>No clocking.</b> Steady climb 18,968→51,396, matching the clock. A fresh MOT pass means no engine light (auto-fail since 2018) — no hidden fault.',
     notes:[['ok','Spare wheel present'],['ok','Number of keys: 2'],['info','Full mileage history (genuine)'],['ok','No engine-fault / warning-light flag']],
     advisories:[['watch','2× tyres worn near legal limit'],['watch','Front brakes fluctuating (not excessive)'],['info','Historic: light sill rust, rusty discs (stood)']]},
-  repair:{note:'nearside rear corner', rows:[
-    ['Rear bumper — used (primed ~£72 & self-spray / painted ~£90–100)',75,100,'known','https://www.ebay.co.uk/sch/i.html?_nkw=vw+polo+6r+2009-2014+rear+bumper&LH_Sold=1&LH_Complete=1','eBay sold £70–145'],
-    ['Quarter-panel dent & scrape (fill / blend)',0,300,'known','',''],
-    ['2× tyres 185/60 R15, fitted',92,100,'known','https://www.tyre-shopper.co.uk/tyres/185-60-15','budget tyres £46+'],
-    ['Paint & materials (LC9X basecoat + lacquer + primer)',40,120,'known','https://www.rapidpaints.co.uk/products/vw-volkswagen-deep-black-code-lc9x-ready-for-use-basecoat-car-spray-paint','LC9X aerosol £12.45'],
-    ['Bumper clips / absorber / fittings',15,25,'',''],
-    ['Rear light NS + crash bar (only if damaged)',0,55,'','https://www.ebay.co.uk/sch/i.html?_nkw=vw+polo+6r+2009-2014+rear+light+passenger','light £16–25']],
-    subBest:222, subWorst:700},
-  model:{fees:264,transport:364,recommission:40,repairDiy:222,repairGarage:700,targetProfit:1200,
+  repair:{note:'nearside rear corner · real prices with links · £0 in red = still to source', rows:[
+    ['Rear bumper — used complete, genuine (Polo SE 6R)',100,100,'sourced','https://www.ebay.co.uk/itm/117255117388','eBay £100 — this listing'],
+    ['Rear light NS — used genuine (6R0945095A)',25,25,'sourced','https://www.ebay.co.uk/itm/800346034016','eBay £25 — this listing'],
+    ['2× tyres 185/60 R15, fitted',92,92,'sourced','https://www.tyre-shopper.co.uk/tyres/185-60-15','Tyre-Shopper ~£46 ea fitted'],
+    ['Paint & materials — LC9X spray kit (self-spray)',38,38,'sourced','https://www.rapidpaints.co.uk/products/vw-volkswagen-deep-black-code-lc9x-ready-for-use-basecoat-car-spray-paint','RapidPaints LC9X kit'],
+    ['Bumper clips / fittings',0,0,'','','still to source'],
+    ['Quarter-panel dent & blend — bodyshop labour',0,0,'','','get a quote']],
+    subBest:255, subWorst:255},
+  model:{fees:264,transport:364,recommission:40,repairDiy:255,repairGarage:255,targetProfit:1200,
     resale:{low:2880,mid:3320,high:3915},bidDefault:500}
 },
 {
@@ -465,22 +468,26 @@ function renderCar(c){
     const editable = !!c.model && c.sold==null;
     const cell=(i,col)=>{
       const v=editable?effRow(c,i,col):(col==='b'?c.repair.rows[i][1]:c.repair.rows[i][2]);
+      const z=(+v===0)?' zero':'';
       return editable
-        ? `<td class="num"><span class="poundpre">£</span><input class="repcell" type="number" min="0" step="5" data-i="${i}" data-col="${col}" value="${v}"></td>`
-        : `<td class="num">${fmt(v)}</td>`;
+        ? `<td class="num"><span class="poundpre">£</span><input class="repcell${z}" type="number" min="0" step="5" data-i="${i}" data-col="${col}" value="${v}"></td>`
+        : `<td class="num"${z?' style="color:var(--stop);font-weight:700"':''}>${fmt(v)}</td>`;
     };
     const rows=c.repair.rows.map((r,i)=>{
-      const link=r[4]?`<br><a class="partlink" href="${r[4]}" target="_blank" rel="noopener">${r[5]} →</a>`:'';
-      const tag=r[3]?`<span class="tag known">${r[3]}</span>`:`<span class="tag">potential</span>`;
+      const link=r[4]?`<br><a class="partlink" href="${r[4]}" target="_blank" rel="noopener">${r[5]} →</a>`:(r[5]?`<br><span class="tosource">${r[5]}</span>`:'');
+      const tag=r[3]?`<span class="tag known">${r[3]}</span>`:`<span class="tag">unpriced</span>`;
       return `<tr><td>${r[0]}${tag}${link}</td>${cell(i,'b')}${cell(i,'w')}</tr>`;
     }).join('');
     const sb=editable?effSub(c,'b'):c.repair.subBest, sw=editable?effSub(c,'w'):c.repair.subWorst;
     const reset = (editable&&hasOv(c.id))?`<a class="resetlink" onclick="resetRepair('${c.id}')">reset to defaults</a>`:'';
+    const nZero = c.repair.rows.filter((r,i)=>(+effRow(c,i,'b')===0)).length;
+    const warn = nZero ? `<p class="repwarn">⚠ ${nZero} line${nZero>1?'s are':' is'} unpriced (red £0) — still to be sourced. The profit below is <b>best-case</b> until these are filled in.</p>` : '';
     h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span>
       <span class="sec-note">${c.repair.note}</span></div><div class="sec-body"><table>
       <thead><tr><th>Item</th><th class="num">DIY (best)</th><th class="num">Garage (worst)</th></tr></thead>
       <tbody>${rows}<tr class="sub"><td>Repair subtotal ${reset}</td><td class="num" id="subBest">${fmt(sb)}</td><td class="num" id="subWorst">${fmt(sw)}</td></tr></tbody></table>
-      ${editable?`<p class="edithint">Tap any figure to change it — the profit below updates instantly. Edits are saved on <b>this device</b>. Want a number baked into the site for every device? Just tell me the figure.</p>`:''}</div></section>`;
+      ${warn}
+      ${editable?`<p class="edithint">Every figure is a real sourced price with a link — tap any to change it (a garage quote, a cheaper find); the profit updates instantly and saves on <b>this device</b>. Red £0 = not sourced yet. Tell me a figure to bake it in for every device.</p>`:''}</div></section>`;
   } else if(c.pendingRepair){
     h += `<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Repair — parts &amp; costs</span></div>
       <div class="sec-body"><div class="pending">${c.pendingRepair}</div></div></section>`;
@@ -523,6 +530,8 @@ function wireRepairEdits(c){
       else ov[i][col]=Math.round(val);
     });
     saveOv(c.id, ov);
+    // red-zero styling per input
+    document.querySelectorAll('.repcell').forEach(inp=>{ inp.classList.toggle('zero', parseFloat(inp.value)===0 || inp.value===''); });
     const sb=effSub(c,'b'), sw=effSub(c,'w');
     document.getElementById('subBest').textContent=fmt(sb);
     document.getElementById('subWorst').textContent=fmt(sw);
