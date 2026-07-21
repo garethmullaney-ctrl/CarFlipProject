@@ -188,7 +188,7 @@
 
 <div class="wrap"><div id="app"></div>
   <footer>
-    <span class="src">Working appraisals from Copart lot data, DVSA MOT history, eBay sold comps &amp; live parts pricing. Figures are estimates — firm up on inspection. Not financial advice.</span>
+    <span class="src">Working appraisals from Copart lot data &amp; notes, the Copart vehicle report, DVSA MOT history, eBay sold comps &amp; live parts pricing. Figures are estimates — firm up on inspection. Not financial advice.</span>
     <span>Deal Book v1 · 21 Jul 2026</span>
   </footer>
 </div>
@@ -291,7 +291,7 @@ const CARS = [
     trail:[[2014,14501],[2016,30376],[2018,50254],[2019,60595],[2020,63982],[2021,67380],[2022,69759],[2023,72104],[2024,74916],[2026,79066]],
     trailNote:'<b>No clocking.</b> A clean climb 14,501→79,066 across the whole record — a low-mileage, cared-for weekend car (~4–5k/yr). The <b>April 2026 pass at 79,066</b> is the key fact: it was running and driving 656 miles before it reached Copart.',
     notes:[['bad','Copart note: ROOF DOES NOT RETRACT — powered hood inoperative'],['watch','Run condition: “does not run” — but MOT-driven 656 miles ago'],['info','Roof + no-start may share ONE cause (flat/disconnected battery or crash cut-off)'],['bad','No V5 logbook — DVLA V62 replacement (£25 + wait)'],['bad','Copart note: only 1 key — spare Porsche key ~£250'],['info','Gen2 9A1 engine — no IMS bearing (unlike pre-2009 cars)'],['watch','Cluster shows PSM / ABS / airbag / CEL — likely impact fault codes, no airbag deployment']],
-    advisories:[['watch','Apr ’26: coolant pipe weep at connecting joint'],['watch','Apr ’26: 2× front tyres — cut / perishing'],['info','Copart book value (ACV) £17,388']]},
+    advisories:[['watch','Apr ’26: coolant pipe weep at connecting joint'],['watch','Apr ’26: 2× front tyres — cut / perishing'],['ok','Report: never scrapped · not imported/exported · no colour change'],['watch','Report: 6 previous owners · currently SORN (off-road)'],['info','Copart book value (ACV) £17,388']]},
   repair:{note:'bumper + roof + recommission — plus the “does it run?” unknown', rows:[
     ['Front bumper — used silver 987 + fit & paint',200,500,'known','https://www.ebay.co.uk/sch/i.html?_nkw=porsche+987+boxster+front+bumper+silver','used bumper ~£200'],
     ['Roof mechanism — diagnose & repair (hood won’t retract)',150,1500,'','https://www.design911.co.uk/porsche/boxster-986-987-981/','microswitch → hydraulics'],
@@ -424,7 +424,7 @@ function renderCar(c){
       h += `<div class="subhead">MOT</div><div class="drow"><span class="k">Valid until</span><span class="v">${c.history.motTo}</span></div>`;
     }
     h += `</div><div><div class="subhead">Copart notes</div>${listBlock(c.history.notes)}
-      <div class="subhead" style="margin-top:16px">MOT advisories</div>${listBlock(c.history.advisories)}</div></div></div></section>`;
+      <div class="subhead" style="margin-top:16px">Advisories &amp; vehicle report</div>${listBlock(c.history.advisories)}</div></div></div></section>`;
   } else if(c.pendingHistory){
     h += `<section><div class="sec-head"><span class="sec-num">03</span><span class="sec-title">History &amp; provenance</span></div>
       <div class="sec-body"><div class="pending">${c.pendingHistory}</div></div></section>`;
