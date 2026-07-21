@@ -71,6 +71,12 @@
   .summary .lm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px}
   .pend{font-family:var(--mono);font-size:11px;color:var(--faint);font-style:italic}
   .tnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.55;max-width:80ch}
+  .archwrap{margin-top:26px;border-top:1px solid var(--line);padding-top:8px}
+  .archtoggle{font-family:var(--mono);font-size:12px;color:var(--muted);background:none;border:0;cursor:pointer;padding:8px 0;letter-spacing:.04em}
+  .archtoggle:hover{color:var(--ink)}
+  .archbody{margin-top:8px}
+  .summary.arch tbody tr{opacity:.6}
+  .summary.arch tbody tr:hover{opacity:1;background:var(--stop-tint)}
 
   /* ---------- DETAIL (shared with SE sheet) ---------- */
   .mast{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 20px;justify-content:space-between;padding:6px 0 16px;border-bottom:2px solid var(--ink)}
@@ -225,23 +231,36 @@ const CARS = [
     resale:{low:2880,mid:3320,high:3915},bidDefault:500}
 },
 {
-  id:'rs6', lot:'60546026', title:'2016 Audi RS6', yr:'4.0T Quattro', cat:'Cat U',
-  sale:'Today, 21 Jul · 11:30', loc:'Sandtoft', currentBid:15200, verdict:'watch',
-  headline:'The aspiration. Cat U (top resale), but the live auction is still climbing — not one to bid on yet.',
-  chips:[['good','Cat U — no write-off marker'],['good','Petrol V8 · ULEZ-exempt'],['','81,656 miles'],
-    ['warn','Reserve not yet met'],['warn','Live today — price still moving']],
-  bidGuide:{safe:12079,target:19659,ceiling:24000},
-  bidGuideNote:'from the resale model — for reference, not a recommendation to bid',
-  fees:[['Buyer fee (tier)','~£600+'],['Internet bid fee',35],['Lot retrieval fee',50],['VAT on fees','20%']],
-  feesTotal:null, transport:'£150–250 independent',
-  resale:{low:26000,mid:30000,high:34000,method:['Clean 2016 RS6 Performance retail ~£30–36k','Cat U keeps near-full money if damage is light','A different game to the Polos — big absolute margin, big absolute risk']},
-  lede:'This is the build-toward car, not a buy-now. It’s Cat U so it holds its money, but the pre-bid was never the real price — the <b>live auction is where the number is made</b>, and at £15,200 with the reserve still unmet it’s clearly still moving. We watch this one; we don’t stretch for it until the fund and the nerve are there.',
-  pendingHistory:'Full MOT trail, notes and damage workup not pulled yet — it’s a watch, not a live bid. Gathered on the day you decide to go for one.',
-  pendingRepair:'No repair breakdown yet — Cat U damage is typically light/cosmetic, but we’d assess parts once it’s a real target.',
-  model:null
+  id:'rs6', lot:'60546026', title:'2016 Audi RS6', yr:'4.0T Avant', cat:'Cat U',
+  sale:'Today, 21 Jul · 12:30', loc:'Sandtoft', currentBid:15200, verdict:'watch',
+  headline:'Genuinely clean — unrecorded, honest 82k, Copart-verified running. The risk here is the price, not the car.',
+  chips:[['good','Cat U — unrecorded, no marker'],['good','Copart-verified: starts & drives'],['good','7 MOT passes · no clocking'],
+    ['good','MOT to Apr 2027'],['good','Physical V5 · 2 keys'],['good','Petrol V8 · ULEZ-exempt'],
+    ['warn','Reserve not met — needs ~£18k+'],['warn','82k V8 — air-susp / turbo risk']],
+  bidGuide:{safe:19700,target:21500,ceiling:23800},
+  fees:[['Buyer fee (6.5% of hammer)','£1,235 @ £19k'],['VAT on buyer fee (20%)',247],['Online bid + gate fee','~£200'],['VAT on hammer','£0 · margin scheme']],
+  feesTotal:1682, transport:'£200–300 independent · Copart quote £591 (avoid)',
+  resale:{low:25500,mid:27500,high:30000,method:['2016 RS6 Avant asking £29k–£47k on Autotrader','82k-mile example sits at the bottom of that band','Clean, unrecorded, full MOT → £26–30k achievable private']},
+  lede:'This is the cleanest-provenance car we’ve found. <b>Cat U — genuinely unrecorded</b> (no write-off marker on the record), Copart themselves verified the <b>engine starts and the transmission engages</b>, it has a physical V5 and two keys, every panel is straight in the photos, and the MOT record is spotless — <b>seven straight passes, honest rising mileage, no clocking</b>, ticket to April 2027. The car isn’t the problem. The <b>price</b> is: the reserve isn’t met at £15,200, so it’ll likely need £18–22k to win, and at that level a twin-turbo V8 at 82k miles (air-suspension and turbos are the money items) ties up big capital in one non-DIY car. Watch it; only pounce if it stays cheap.',
+  history:{vrn:'AD16 KMV',motTo:'6 Apr 2027',
+    trail:[[2020,33901],[2021,36572],[2022,52050],[2023,62707],[2024,72803],[2025,75618],[2026,81208]],
+    trailNote:'<b>No clocking.</b> A clean climb 33,901→81,208 across seven straight MOT passes. The March 2026 pass means no engine-management light (an auto-fail since 2018) — no hidden fault at last test.',
+    notes:[['ok','Copart-verified: engine starts'],['ok','Copart-verified: transmission engages'],['ok','2 keys · Physical V5 available'],['info','All notes are spec/equipment — no fault or warning-light flag'],['ok','Damage logged as minor dents/scratches only']],
+    advisories:[['info','No adverse advisories in the visible MOT history'],['watch','82k miles: air-suspension & carbon-clean due window'],['info','Copart book value (ACV) £31,500']]},
+  repair:{note:'recommission & prudent pre-sale — cosmetic only, no crash damage', rows:[
+    ['Smart repair — minor dents/scratches (mobile)',150,400,'known','https://www.chipsaway.co.uk/','ChipsAway quote'],
+    ['Alloy tidy — kerb rash (~£70/wheel)',0,280,'','https://www.ebay.co.uk/sch/i.html?_nkw=audi+21+inch+alloy+refurbishment','refurb / replace'],
+    ['Full service — oil, filters, plugs (specialist)',300,550,'known','https://www.eurocarparts.com/','ECP service kit'],
+    ['Carbon clean / walnut blast (60k+ advisable)',0,550,'','https://www.terraclean.co.uk/','TerraClean / walnut'],
+    ['Pre-sale detail & valet',80,200,'',''],
+    ['Air-suspension strut — ONLY if it fails',0,1200,'','https://www.ebay.co.uk/sch/i.html?_nkw=audi+a6+c7+air+suspension+strut+front','strut £250–600'],
+    ['MOT & consumables',40,90,'','']],
+    subBest:570, subWorst:3270},
+  model:{feePct:0.078,feeFixed:200,transport:250,recommission:150,repairDiy:570,repairGarage:3270,targetProfit:3000,
+    resale:{low:25500,mid:27500,high:30000},bidDefault:19000,bidMin:14000,bidMax:24000,bidStep:250}
 },
 {
-  id:'polo-match', lot:'60564156', title:'2013 VW Polo 1.4 Match', yr:'5dr DSG', cat:'Cat N',
+  id:'polo-match', lot:'60564156', archived:true, title:'2013 VW Polo 1.4 Match', yr:'5dr DSG', cat:'Cat N',
   sale:'Thu 23 Jul 2026', loc:'Newbury', currentBid:975, verdict:'pass',
   headline:'Nicer spec, but stacks up strikes — DSG, no V5, MOT nearly out, and already bid past sensible.',
   chips:[['good','92k genuine'],['warn','DSG auto — mechatronic risk'],['warn','No V5 logbook'],
@@ -275,43 +294,58 @@ const CARS = [
 function costsOf(c){
   if(!c.model) return null;
   const M=c.model, rep=M.repairDiy, cont=Math.round(0.15*rep);
-  return M.fees+M.transport+M.recommission+rep+cont;
+  const fees = M.feePct!=null ? Math.round(c.currentBid*M.feePct)+(M.feeFixed||0) : M.fees;
+  return fees+M.transport+M.recommission+rep+cont;
 }
+function rowHtml(c){
+  const vc=vColor(c.verdict), vt=vTint(c.verdict);
+  const costs=costsOf(c);
+  const bidShown = c.bin ? ('BIN '+fmt(c.bin)) : fmt(c.currentBid);
+  let costCell='<span class="pend">pending</span>', profCell='<span class="pend">—</span>';
+  if(costs!=null){
+    const profit=c.resale.mid - c.currentBid - costs;
+    const col=profit>=800?'var(--go)':profit>=250?'var(--caution)':'var(--stop)';
+    costCell=fmt(costs);
+    profCell=`<b style="color:${col};font-weight:800">${fmt(profit)}</b>`;
+  }
+  return `<tr onclick="go('${c.id}')">
+    <td class="vh"><b>${c.title}</b> <span class="ys">${c.yr}</span><div class="lm">Lot ${c.lot} · ${c.sale}</div></td>
+    <td>${c.cat}</td>
+    <td class="num">${bidShown}</td>
+    <td class="num">${fmt(c.resale.mid)}</td>
+    <td class="num">${costCell}</td>
+    <td class="num">${profCell}</td>
+    <td><span class="vchip" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</span></td>
+  </tr>`;
+}
+const HEAD=`<thead><tr><th>Vehicle</th><th>Cat</th><th class="num">Current bid</th><th class="num">Exp. resale</th><th class="num">Costs to fix</th><th class="num">Profit @ bid</th><th>Call</th></tr></thead>`;
 function renderHome(){
   document.getElementById('backBtn').classList.remove('show');
-  document.getElementById('navMeta').textContent = `${CARS.length} cars · bids ${SCAN_DATE}`;
-  const rows = CARS.map(c=>{
-    const vc=vColor(c.verdict), vt=vTint(c.verdict);
-    const costs=costsOf(c);
-    const bidShown = c.bin ? ('BIN '+fmt(c.bin)) : fmt(c.currentBid);
-    let costCell='<span class="pend">pending</span>', profCell='<span class="pend">—</span>';
-    if(costs!=null){
-      const profit=c.resale.mid - c.currentBid - costs;
-      const col=profit>=800?'var(--go)':profit>=250?'var(--caution)':'var(--stop)';
-      costCell=fmt(costs);
-      profCell=`<b style="color:${col};font-weight:800">${fmt(profit)}</b>`;
-    }
-    return `<tr onclick="go('${c.id}')">
-      <td class="vh"><b>${c.title}</b> <span class="ys">${c.yr}</span><div class="lm">Lot ${c.lot} · ${c.sale}</div></td>
-      <td>${c.cat}</td>
-      <td class="num">${bidShown}</td>
-      <td class="num">${fmt(c.resale.mid)}</td>
-      <td class="num">${costCell}</td>
-      <td class="num">${profCell}</td>
-      <td><span class="vchip" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</span></td>
-    </tr>`;
-  }).join('');
+  const active=CARS.filter(c=>!c.archived), archived=CARS.filter(c=>c.archived);
+  document.getElementById('navMeta').textContent = `${active.length} live · bids ${SCAN_DATE}`;
+  const archBlock = archived.length ? `
+    <div class="archwrap">
+      <button class="archtoggle" onclick="toggleArch(event)"><span id="archCaret">▸</span> Passed &amp; archived (${archived.length})</button>
+      <div id="archBody" class="archbody" style="display:none">
+        <div class="tablewrap"><table class="summary arch">${HEAD}<tbody>${archived.map(rowHtml).join('')}</tbody></table></div>
+        <p class="tnote">Kept for the record — the workup and the reason it was passed live on its page. Say the word to bring one back into the live list.</p>
+      </div></div>` : '';
   document.getElementById('app').innerHTML = `
     <header class="home-mast">
       <div class="eyebrow">Copart UK · salvage flips</div>
       <h1>The Deal Book</h1>
-      <p>Every car in one view — the current bid set against the money it takes to make good, so you can see the moment a bid runs away from the profit. Tap a row for the full deal sheet.</p>
+      <p>Every live car in one view — the current bid set against the money it takes to make good, so you can see the moment a bid runs away from the profit. Tap a row for the full deal sheet.</p>
     </header>
-    <div class="tablewrap"><table class="summary">
-      <thead><tr><th>Vehicle</th><th>Cat</th><th class="num">Current bid</th><th class="num">Exp. resale</th><th class="num">Costs to fix</th><th class="num">Profit @ bid</th><th>Call</th></tr></thead>
-      <tbody>${rows}</tbody></table></div>
-    <p class="tnote">Profit @ bid = expected resale − current bid − costs to make good (DIY route). It shrinks as bids climb — when it turns red, the bid has run away and the car gets discounted. Bids scanned ${SCAN_DATE}; ask me to refresh any time. “Pending” = full workup still to gather.</p>`;
+    <div class="tablewrap"><table class="summary">${HEAD}<tbody>${active.map(rowHtml).join('')}</tbody></table></div>
+    <p class="tnote">Profit @ bid = expected resale − current bid − costs to make good (DIY route). It shrinks as bids climb — when it turns red, the bid has run away and the car gets discounted. Bids scanned ${SCAN_DATE}; ask me to refresh any time. “Pending” = full workup still to gather.</p>
+    ${archBlock}`;
   window.scrollTo(0,0);
+}
+function toggleArch(e){
+  e.stopPropagation();
+  const b=document.getElementById('archBody'), c=document.getElementById('archCaret');
+  const open=b.style.display!=='none';
+  b.style.display=open?'none':'block'; c.textContent=open?'▸':'▾';
 }
 
 /* ============ RENDER: DETAIL ============ */
@@ -321,7 +355,7 @@ function feesRows(c){
   const tot=c.feesTotal?`<div class="drow tot"><span class="k">Copart fees total</span><span class="v">${fmt(c.feesTotal)}</span></div>`:'';
   return `<div class="subhead">Copart charges</div>${rows}${tot}
     <div class="subhead" style="margin-top:16px">Transport</div>
-    <div class="drow"><span class="k">Bristol → you</span><span class="v">${c.transport||'—'}</span></div>`;
+    <div class="drow"><span class="k">${c.loc||'Yard'} → you</span><span class="v">${c.transport||'—'}</span></div>`;
 }
 function scale(o,labs){
   return `<div class="scale">
@@ -348,7 +382,7 @@ function renderCar(c){
   // bid guide
   const bgLabs = c.model?['Safe max','Target max','Ceiling']:['Safe','Model max','Ceiling'];
   h += `<section><div class="sec-head"><span class="sec-num">00</span><span class="sec-title">Bid guide</span>
-    <span class="sec-note">${c.model?'for a £1,200 target profit':(c.bidGuideNote||'')}</span></div>
+    <span class="sec-note">${c.model?('for a '+fmt(c.model.targetProfit)+' target profit'):(c.bidGuideNote||'')}</span></div>
     <div class="sec-body">${scale(c.bidGuide,bgLabs)}
     <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">${c.bin?'Buy-it-now':'Current bid'}</span><span class="v">${c.bin?fmt(c.bin):fmt(c.currentBid)}</span></div></div></section>`;
 
@@ -400,7 +434,7 @@ function renderCar(c){
       <span class="sub">drag your bid · toggle who does the bodywork</span></div><div class="bl-body">
       <div class="controls">
         <div><div class="slabel"><span>Your winning bid</span><span class="bv mono" id="bidOut"></span></div>
-          <input type="range" id="bid" min="0" max="1500" step="25" value="${c.model.bidDefault}"></div>
+          <input type="range" id="bid" min="${c.model.bidMin??0}" max="${c.model.bidMax??1500}" step="${c.model.bidStep??25}" value="${c.model.bidDefault}"></div>
         <div class="togwrap"><span class="cap">Who does the bodywork?</span>
           <div class="toggle" id="repToggle">
             <button data-r="diy" class="on">DIY · ${fmt(c.model.repairDiy)}</button>
@@ -420,15 +454,17 @@ function renderCar(c){
 /* ---- interactive calc ---- */
 function wireCalc(c){
   const M=c.model; let bid=M.bidDefault, route='diy';
+  const BMIN=M.bidMin??0, BMAX=M.bidMax??1500;
   function paint(){
     const repair=route==='diy'?M.repairDiy:M.repairGarage;
     const cont=Math.round(0.15*repair);
-    const allIn=bid+M.fees+M.transport+M.recommission+repair+cont;
+    const fees = M.feePct!=null ? Math.round(bid*M.feePct)+(M.feeFixed||0) : M.fees;
+    const allIn=bid+fees+M.transport+M.recommission+repair+cont;
     const P={low:M.resale.low-allIn,mid:M.resale.mid-allIn,high:M.resale.high-allIn};
     document.getElementById('bidOut').textContent=fmt(bid);
     document.getElementById('allInOut').textContent=fmt(allIn);
-    document.getElementById('allInBreak').textContent=`  = bid ${fmt(bid)} + fees ${fmt(M.fees)} + transport ${fmt(M.transport)} + repair ${fmt(repair)} + recommission ${fmt(M.recommission)} + contingency ${fmt(cont)}`;
-    const pct=(bid/1500*100).toFixed(1);
+    document.getElementById('allInBreak').textContent=`  = bid ${fmt(bid)} + fees ${fmt(fees)} + transport ${fmt(M.transport)} + repair ${fmt(repair)} + recommission ${fmt(M.recommission)} + contingency ${fmt(cont)}`;
+    const pct=((bid-BMIN)/(BMAX-BMIN)*100).toFixed(1);
     document.getElementById('bid').style.background=`linear-gradient(90deg,var(--petrol) 0%,var(--petrol) ${pct}%,var(--line) ${pct}%)`;
     const order=[['low','Low',M.resale.low],['mid','Expected',M.resale.mid],['high','High',M.resale.high]];
     const maxAbs=Math.max(2000,...Object.values(P).map(v=>Math.abs(v)));
@@ -438,9 +474,9 @@ function wireCalc(c){
       return `<div class="pcard"><div class="plab">${lab} resale</div><div class="psale">${fmt(sale)}</div>
         <div class="pval" style="color:${col}">${fmt(v)}</div><div class="pbar"><i style="width:${w}%;background:${col}"></i></div></div>`;
     }).join('');
-    const med=P.mid; let t,d,col,bg,bd;
-    if(med>=M.targetProfit){t='GO';d=`Clears your £1,200 target in the expected case (${fmt(med)}). Strong at this bid.`;col='var(--go)';bg='var(--go-tint)';bd='#bfe0cd';}
-    else if(med>=600){t='OK';d=`Makes ${fmt(med)} expected — short of £1,200 but a fair margin.`;col='var(--caution)';bg='var(--caution-tint)';bd='#e9cd97';}
+    const med=P.mid, tgt=M.targetProfit; let t,d,col,bg,bd;
+    if(med>=tgt){t='GO';d=`Clears your ${fmt(tgt)} target in the expected case (${fmt(med)}). Strong at this bid.`;col='var(--go)';bg='var(--go-tint)';bd='#bfe0cd';}
+    else if(med>=tgt*0.5){t='OK';d=`Makes ${fmt(med)} expected — short of ${fmt(tgt)} but a fair margin.`;col='var(--caution)';bg='var(--caution-tint)';bd='#e9cd97';}
     else if(med>=0){t='THIN';d=`Only ${fmt(med)} expected — margin's gone unless resale lands high.`;col='var(--stop)';bg='var(--stop-tint)';bd='#eebbb4';}
     else{t='STOP';d=`Loses money in the expected case (${fmt(med)}). Too much to pay.`;col='var(--stop)';bg='var(--stop-tint)';bd='#eebbb4';}
     const vEl=document.getElementById('verdict');vEl.style.background=bg;vEl.style.borderColor=bd;
