@@ -241,12 +241,13 @@ const CARS = [
     trailNote:'MOT / mileage history not yet pulled — VRN reveal + DVSA check due on full workup.',
     notes:[['info','Copart title flag: Run and Drive'],['warn','Modified — wrap, aftermarket alloys, lowered, tuning decal (likely remapped)'],['warn','V5 reference only — V62 replacement needed']],
     advisories:[['info','Full damage / MOT read pending full workup']]},
-  repair:{note:'PENDING FULL SOURCING — £0-red = to price on workup. Wrap adds paint-match complexity.', rows:[
-    ['Front bumper + splitter — used ST (to source)',0,0,'','','source on workup · genuine ST bumper + splitter'],
-    ['Wrap-match / respray of replacement panel (to quote)',0,0,'','','wrap complicates colour-match — quote needed'],
-    ['Recommission / MOT / V62 logbook',0,0,'','','V62 £25 + MOT + checks — to confirm']],
-    subBest:0, subWorst:0},
-  model:{fees:413,transport:420,recommission:60,repairDiy:0,repairGarage:0,targetProfit:1500,
+  repair:{note:'Front bumper/splitter · confirmed runner · WRAP complicates colour-match · real eBay prices', rows:[
+    ['Front bumper — genuine Focus ST Mk3 (used)',451,594,'sourced','https://www.ebay.co.uk/itm/266647962723','eBay ST bumper £451 (Frozen White) → £594 (Spirit Blue) — ST-specific, pricey'],
+    ['Front splitter / lower lip — ST (if cracked separately)',60,100,'researched','','ST splitter ~£60–100 used — confirm vs bumper assembly on inspection'],
+    ['Re-wrap replacement bumper to match the flip-wrap',60,250,'researched','','DIY vinyl ~£60 → pro chameleon wrap ~£250 (or full respray to base colour)'],
+    ['Recommission — V62 logbook + MOT',80,80,'known','https://www.gov.uk/apply-vehicle-registration-certificate','V62 £25 + MOT ~£55']],
+    subBest:651, subWorst:1024},
+  model:{fees:413,transport:420,recommission:60,repairDiy:651,repairGarage:1024,targetProfit:1500,
     resale:{low:6500,mid:7500,high:8500},bidDefault:2000}
 },
 {
@@ -263,12 +264,14 @@ const CARS = [
     trailNote:'CRITICAL: verify the 33k is genuine via the DVSA MOT trail + a recent pass (run evidence). VRN reveal pending.',
     notes:[['info','Copart highlight: Additional Info (not Run &amp; Drive)'],['watch','Run status unknown'],['info','Damage both front + rear']],
     advisories:[['info','Full MOT / damage read pending workup']]},
-  repair:{note:'PENDING FULL SOURCING — £0-red = to price on workup. Two damage areas (front + rear).', rows:[
-    ['Front bumper + fittings — used (to source)',0,0,'','','source on workup'],
-    ['Rear bumper + fittings — used (to source)',0,0,'','','source on workup'],
-    ['Recommission / MOT / V62 if needed',0,0,'','','to confirm — run status unknown']],
-    subBest:0, subWorst:0},
-  model:{fees:342,transport:410,recommission:60,repairDiy:0,repairGarage:0,targetProfit:1000,
+  repair:{note:'Front = minor lower grille/fog area · rear bumper · real eBay prices · black colour-match', rows:[
+    ['Front lower grille + fog surround (cracked — minor, from photo)',11,22,'sourced','https://www.ebay.co.uk/itm/317352078358','eBay grille cover £11 + fog trim £11 — front damage is minor'],
+    ['Rear bumper — complete Polo 6R (used, colour-match)',100,100,'sourced','https://www.ebay.co.uk/itm/307019426993','eBay £100 — complete 6R rear bumper'],
+    ['Full front bumper — ONLY if skin cracked (Moda-spec)',0,280,'conditional','https://www.ebay.co.uk/itm/306993580930','£0 if grille-only fix holds · £280 Moda front bumper if the skin is cracked'],
+    ['Clips / brackets + paint match (black)',18,60,'sourced','https://www.rapidpaints.co.uk/','eBay clips £18 + RapidPaints kit if a respray is needed'],
+    ['Recommission — V62 (if no V5) + MOT + run-check',80,80,'known','https://www.gov.uk/apply-vehicle-registration-certificate','V62 £25 + MOT £55 — run status unconfirmed']],
+    subBest:209, subWorst:542},
+  model:{fees:342,transport:410,recommission:60,repairDiy:209,repairGarage:542,targetProfit:1000,
     resale:{low:2600,mid:3100,high:3600},bidDefault:800}
 },
 {
@@ -285,12 +288,13 @@ const CARS = [
     trailNote:'MOT / mileage history + run confirmation pending. VRN reveal needed.',
     notes:[['info','Copart highlight: Additional Info (not Run &amp; Drive)'],['watch','Run status unknown'],['info','Damage both front + rear · 3-door']],
     advisories:[['info','Full read pending workup']]},
-  repair:{note:'PENDING FULL SOURCING — £0-red = to price on workup. Two damage areas (front + rear).', rows:[
-    ['Front bumper + fittings — used (to source)',0,0,'','','source on workup'],
-    ['Rear bumper + fittings — used (to source)',0,0,'','','source on workup'],
-    ['Recommission / MOT / V62 if needed',0,0,'','','to confirm — run status unknown']],
-    subBest:0, subWorst:0},
-  model:{fees:264,transport:400,recommission:60,repairDiy:0,repairGarage:0,targetProfit:800,
+  repair:{note:'Front + rear bumpers · real eBay prices · white colour-match · 3dr', rows:[
+    ['Front bumper — complete Polo 6R (used)',130,130,'sourced','https://www.ebay.co.uk/itm/117251310594','eBay £130 — complete 6R front bumper'],
+    ['Rear bumper — complete Polo 6R (used)',100,100,'sourced','https://www.ebay.co.uk/itm/307019426993','eBay £100 — complete 6R rear bumper'],
+    ['Clips / brackets + paint match (white)',18,80,'sourced','https://www.rapidpaints.co.uk/','eBay clips £18 + RapidPaints white kit if a respray is needed'],
+    ['Recommission — V62 + MOT + run-check',80,80,'known','https://www.gov.uk/apply-vehicle-registration-certificate','V62 £25 + MOT £55 — run status unconfirmed']],
+    subBest:328, subWorst:390},
+  model:{fees:264,transport:400,recommission:60,repairDiy:328,repairGarage:390,targetProfit:800,
     resale:{low:1800,mid:2200,high:2600},bidDefault:500}
 },
 {
