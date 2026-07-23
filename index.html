@@ -228,6 +228,29 @@ function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint'
 /* ============ DATA ============ */
 const CARS = [
 {
+  id:'z4-23i', lot:'58199446', title:'2011 BMW Z4 23i sDrive M Sport', yr:'2.5 6cyl Auto', cat:'Cat N',
+  sale:'Fri 24 Jul 2026', loc:'Sandwich', currentBid:1550, verdict:'review',
+  headline:'REVIEW — the roof is the whole question. Cosmetically clean, genuine Runs &amp; Drives M Sport (2.5 straight-six, oyster leather, engine bay complete, 72k confirmed on the cluster). BUT Copart notes flag: “ROOF DOES NOT FULLY LOWER DUE TO MALFUNCTION” — every photo has the hard-top up. On a convertible that IS the value. A UK Z4 roof specialist averages ~£445–595 to fix, up to ~£900 if the hydraulic rams/pump are gone. Only 1 key. Plate reveal was blocked today (Copart daily cap) so MOT/provenance still to pull. A real bet: a cheap M Sport IF the roof is a minor fix — a money pit if it isn’t.',
+  chips:[['good','Runs &amp; drives (Copart-verified)'],['good','2.5 six · M Sport · ULEZ-exempt'],['good','72,130 confirmed on cluster'],['good','Engine bay complete · oyster leather'],['bad','ROOF DOES NOT FULLY LOWER (malfunction)'],['warn','Only 1 key (Copart notes)'],['warn','Front/side damage codes — but panels look clean'],['warn','Partial V5 — V62 needed'],['warn','Plate reveal blocked today → MOT pending'],['','No VAT on hammer']],
+  bidGuide:{safe:2000,target:2750,ceiling:3500},
+  fees:[['Buyer fee (Copart calc @ £3,000)',425],['Lot retrieval fee',50],['Internet bid fee',89],['VAT on fees (20%)',113],['VAT on hammer','£0 · no VAT']],
+  feesTotal:677, transport:'Copart delivery £238 + £48 VAT = £286 (Copart calc @ £3,000, Sandwich→KT3) · car-haulier ~£150–180 (≈90 mi)',
+  resale:{low:6000,mid:7000,high:8000,method:['Clean 23i M Sport ~72k asks ~£8–9k (AutoTrader: 2012/62k = £8,950)','Cat N: 20–35% under clean','Roof working + disclosed → £6–8k; roof left broken slashes it']},
+  history:{vrn:'— (reveal blocked)',motTo:'pending — plate reveal blocked',
+    trail:[],
+    trailNote:'Plate reveal wouldn\'t fire this session — I revealed 3 plates earlier today, so this looks like Copart\'s daily reveal cap, not a fault. VRN still masked **11***. The moment it reveals I\'ll pull the full DVSA MOT + mileage trail. Copart odo 72,130 matches the cluster photo, which is a good sign.',
+    notes:[['bad','Copart notes: ROOF DOES NOT FULLY LOWER DUE TO MALFUNCTION'],['warn','Copart notes: only 1 key'],['info','Cat N — front + side damage codes, but panels look clean/tidy in the photos'],['info','Mileage 72,130 confirmed on the cluster photo'],['info','Vehicle report (owners/plate/provenance) — needs your screenshot; the PDF I can\'t read']],
+    advisories:[['info','MOT advisories pending the plate reveal']]},
+  repair:{note:'The roof is the swing cost. Cosmetics look minimal despite the damage codes. Real Z4-specialist quote + recommission.', rows:[
+    ['Folding hard-top repair — Z4 specialist (roof won\'t fully lower)',250,900,'sourced','https://hoodtech.co.uk/bmw-z4-2009-2016-e89','HoodTech (UK E89 Z4 roof specialist): avg repair £445–595 inc VAT, £90 diagnostic. £250 best if it\'s a service/seal/switch; £900 worst if hydraulic rams or pump. Specialist job — not a DIY hydraulics fix.'],
+    ['Front/side cosmetic tidy (panels look clean in photos)',0,150,'conditional','','Front-End + Side damage codes, but no obvious damage in any photo. £0 if cosmetic-only; small allowance for scuffs/paint on inspection.'],
+    ['2nd key — only 1 key present (notes)',0,180,'conditional','','Notes say 1 key. Optional: cut + code a spare BMW key ~£150–180 for resale confidence.'],
+    ['Recommission — V62 + MOT',80,80,'known','https://www.gov.uk/apply-vehicle-registration-certificate','Partial V5 → V62 £25 + MOT ~£55.']],
+    subBest:330, subWorst:1310},
+  model:{fees:677,transport:286,recommission:60,repairDiy:330,repairGarage:1310,targetProfit:1500,
+    resale:{low:6000,mid:7000,high:8000},bidDefault:2750}
+},
+{
   id:'focus-st', lot:'47681476', title:'2014 Ford Focus ST', yr:'2.0T 5dr', cat:'Cat N',
   sale:'Mon 27 Jul 2026', loc:'Bristol', currentBid:175, verdict:'review',
   headline:'CONFIRMED RUNNER but MODIFIED — colour-flip wrap, black alloys, lowered, tuning-firm decal (likely remapped). Copart ACV £10,077, but modified + Cat N = a narrow, haggle-hard buyer pool. Specialist flip, not bread-and-butter — the classic “would I buy it if I didn’t fancy it?” car.',
