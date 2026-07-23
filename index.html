@@ -229,14 +229,14 @@ function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint'
 const CARS = [
 {
   id:'polo-se', lot:'59090246', title:'2010 VW Polo 1.4 SE', yr:'5dr', cat:'Cat N',
-  sale:'Wed 22 Jul 2026', loc:'Bristol', currentBid:850, verdict:'go',
-  headline:'Genuine 52k, fresh MOT, no fault — the clean one. DIY-friendly rear-end repair.',
+  sale:'Ended 22 Jul 2026', loc:'Bristol', currentBid:1100, verdict:'pass', archived:true,
+  headline:'OUTBID — sold above £1,100 (over the £1,050 max; exact hammer not disclosed to non-buyers). Workup kept — these come round again.',
   chips:[['good','Runs & drives'],['good','52k genuine (MOT-verified)'],['good','MOT to Jun 2027'],
     ['good','Petrol · ULEZ-exempt'],['good','Physical V5 · 2 keys'],['good','No engine-fault flag'],
     ['','5-speed manual'],['','No VAT on hammer']],
   bidGuide:{safe:106,target:977,ceiling:2003},
-  fees:[['Buyer fee',135],['Internet bid fee',35],['Lot retrieval fee',50],['VAT on fees (20%)',44],['VAT on hammer','£0 · margin scheme']],
-  feesTotal:264, transport:'Copart delivery £364 to KT3 (quoted) · independent haulier ~£150–200',
+  fees:[['Buyer fee (Copart calc @ £1,050)',225],['Lot retrieval fee',50],['Internet bid fee',69],['VAT on fees (20%)',69],['VAT on hammer','£0 · margin scheme']],
+  feesTotal:413, transport:'Copart delivery £364 + £73 VAT = £437 (Copart calc) · self-collect/haulier ~£150–200 = the margin lever',
   resale:{low:2880,mid:3320,high:3915,method:['2010 Polo 1.4 SE sold £3,750 & £4,000','Lower-spec 1.2 / rougher £1,020–1,800','Clean £3,600/4,000/4,500 less Cat N 13–20%']},
   history:{vrn:'WG10 GFX',motTo:'3 Jun 2027',
     trail:[[2013,18968],[2014,24862],[2015,28403],[2016,29622],[2017,30555],[2018,33381],[2019,36429],[2020,38676],[2021,40341],[2022,41643],[2023,42688],[2025,42966],[2026,51396]],
@@ -252,8 +252,8 @@ const CARS = [
     ['Alloy refurb — kerb rash (≥2 wheels visible; do the set for resale)',33,220,'sourced','https://e-tech.uk.com/e-tech-alloy-wheel-refurbishment-kit-silver','E-Tech DIY kit £33 (does the set) · mobile set refurb ~£220'],
     ['Windscreen — stone chips (assessor-ringed); passed MOT, optional',0,180,'conditional','https://www.nationalwindscreens.co.uk/','£0 (legal, passed MOT) · ~£180 replace if chip spreads / in view']],
     subBest:391, subWorst:905},
-  model:{fees:264,transport:364,recommission:40,repairDiy:391,repairGarage:905,targetProfit:1200,
-    resale:{low:2880,mid:3320,high:3915},bidDefault:500}
+  model:{fees:413,transport:437,recommission:40,repairDiy:391,repairGarage:905,targetProfit:1200,
+    resale:{low:2880,mid:3320,high:3915},bidDefault:950}
 },
 {
   id:'rs6', lot:'60546026', title:'2016 Audi RS6', yr:'4.0T Avant', cat:'Cat U',
@@ -303,11 +303,11 @@ const CARS = [
 {
   id:'boxster', lot:'55253806', title:'2011 Porsche Boxster', yr:'987.2 S', cat:'Cat N',
   sale:'Mon 27 Jul 2026', loc:'Wisbech', currentBid:2900, bin:6500, verdict:'review',
-  headline:'The whole bet: it MOT’d & drove 656 miles ago, so “does not run” is probably crash-electrical — not a dead engine.',
+  headline:'FLIP-ONLY, no keeper premium. A good business buy at ≤£4,750 (does-not-run risk absorbed with cushion at that price) — happy to lose it. BIN £6,500 = PASS. MOT’d & drove 656 miles ago, so the no-start is probably crash-electrical, not a dead engine.',
   chips:[['good','Gen2 987.2 — no IMS bearing issue'],['good','MOT-passed & driving Apr ’26'],['good','79k genuine · no clocking'],
     ['good','MOT to Mar 2027'],['warn','“Does not run” at Copart'],['warn','Roof won’t retract'],
     ['warn','No V5 · only 1 key'],['warn','Front bumper damage'],['info','Front lower grille = silver mesh (comps: black fins) — cosmetic, confirm in person'],['','BIN £6,500 · reserve not met']],
-  bidGuide:{safe:6800,target:8100,ceiling:9600},
+  bidGuide:{safe:4000,target:4750,ceiling:5000},
   fees:[['Buyer fee (Copart calc @ £6.5k)',565],['Lot retrieval fee',50],['Internet bid fee',105],['VAT on fees (20%)',144],['VAT on hammer','£0 · margin scheme']],
   feesTotal:864, transport:'Copart delivery £377 + £75 VAT = £452 to KT3 (Copart calc) · independent ~£180–220',
   resale:{low:12500,mid:14000,high:15500,method:['Clean 2011 987.2 S PDK ~80k: AutoTrader asks £20.9–25k (only 5 nationally)','Achieved retail ~£18–20k · private clean ~£18–19k','Cat N repaired + disclosed: 20–40% under clean (UK guide)','Running & tidy → £13–15.5k · drags: no V5, 1 key, 6 owners, repaired front']},
@@ -331,7 +331,7 @@ const CARS = [
     ['ENGINE / PDK contingency — ONLY if it won’t run',0,0,'','','conditional: used PDK £1.5–3k / engine £5k+ — unknown until running']],
     subBest:724, subWorst:2194},
   model:{fees:864,transport:452,recommission:100,repairDiy:724,repairGarage:2194,targetProfit:2500,
-    resale:{low:12500,mid:14000,high:15500},bidDefault:5500,bidMin:2900,bidMax:6500,bidStep:100}
+    resale:{low:12500,mid:14000,high:15500},bidDefault:4750,bidMin:2900,bidMax:6500,bidStep:100}
 }
 ];
 
