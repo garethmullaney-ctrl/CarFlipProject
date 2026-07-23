@@ -628,7 +628,7 @@ function renderCar(c){
       <span class="sub">drag your bid · toggle who does the bodywork</span></div><div class="bl-body">
       <div class="controls">
         <div><div class="slabel"><span>Your winning bid</span><span class="bv mono" id="bidOut"></span></div>
-          <input type="range" id="bid" min="${c.model.bidMin??0}" max="${c.model.bidMax??1500}" step="${c.model.bidStep??25}" value="${c.model.bidDefault}"></div>
+          <input type="range" id="bid" min="${c.model.bidMin??0}" max="${c.model.bidMax ?? Math.max(2000, Math.ceil((((c.bidGuide&&c.bidGuide.ceiling)||1000)*1.8)/100)*100)}" step="${c.model.bidStep ?? ((((c.bidGuide&&c.bidGuide.ceiling)||1000) > 3000) ? 50 : 25)}" value="${c.model.bidDefault}"></div>
         <div class="togwrap"><span class="cap">Who does the bodywork?</span>
           <div class="toggle" id="repToggle">
             <button data-r="diy" class="on">DIY · <span id="togDiy">${fmt(effRepairDiy(c))}</span></button>
