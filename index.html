@@ -231,7 +231,7 @@ const CARS = [
   id:'focus-st', lot:'47681476', title:'2014 Ford Focus ST', yr:'2.0T 5dr', cat:'Cat N',
   sale:'Mon 27 Jul 2026', loc:'Bristol', currentBid:175, verdict:'review',
   headline:'CONFIRMED RUNNER but MODIFIED — colour-flip wrap, black alloys, lowered, tuning-firm decal (likely remapped). Copart ACV £10,077, but modified + Cat N = a narrow, haggle-hard buyer pool. Specialist flip, not bread-and-butter — the classic “would I buy it if I didn’t fancy it?” car.',
-  chips:[['good','Run &amp; Drive (Copart-flagged)'],['good','Petrol 2.0T · ULEZ-exempt'],['good','Keys present'],['good','Copart ACV £10,077'],['warn','Modified: wrap + alloys + lowered + likely remap'],['warn','Front bumper / splitter damage'],['warn','Wrap complicates paint-match'],['warn','V5 reference only — V62 needed'],['','Reserve not met @ £175']],
+  chips:[['good','Run &amp; Drive (Copart-flagged)'],['good','Petrol 2.0T · ULEZ-exempt'],['good','Keys present'],['good','Copart ACV £10,077'],['warn','Modified: wrap + alloys + lowered + likely remap'],['warn','Front bumper / splitter damage'],['warn','Wrap complicates paint-match'],['warn','V5 reference only — V62 needed'],['bad','Vehicle report NOT yet checked — provenance unverified'],['','Reserve not met @ £175']],
   bidGuide:{safe:1500,target:2500,ceiling:3500},
   fees:[['Buyer fee (est — pull Copart calc)',225],['Lot retrieval fee',50],['Internet bid fee',69],['VAT on fees (20%)',69],['VAT on hammer','£0 · margin scheme']],
   feesTotal:413, transport:'Copart delivery ~£420 est to KT3 · confirm via lot calc · car-haulier ~£150–200',
@@ -252,17 +252,17 @@ const CARS = [
 },
 {
   id:'polo-moda', lot:'54453106', title:'2010 VW Polo 1.2 Moda', yr:'5dr', cat:'Cat N',
-  sale:'Tue 28 Jul 2026', loc:'Chester', currentBid:250, verdict:'review',
-  headline:'LOW MILES (33k) &amp; reserve met — but NOT flagged Run &amp; Drive (run status unknown) and damage is BOTH front + rear. Worth it only if the MOT confirms the 33k is genuine and a recent pass (run evidence). The MOT / clocking check is the decider.',
-  chips:[['good','33k miles (if genuine — verify)'],['good','Petrol 1.2 · ULEZ-exempt'],['good','Keys present'],['good','Reserve MET (will sell)'],['good','Copart ACV £5,521'],['warn','NOT flagged Run &amp; Drive — run unknown'],['warn','Damage front AND rear'],['warn','33k needs clocking check'],['','No VAT on hammer']],
+  sale:'Tue 28 Jul 2026', loc:'Chester', currentBid:250, verdict:'pass',
+  headline:'PASS — the vehicle report shows STOLEN / RECOVERED (VRN PN60WBT). On top of Cat N and an unconfirmed runner, that provenance flag guts resale and buyer trust. I missed it by skipping the report step — exactly why the full scan is mandatory.',
+  chips:[['bad','STOLEN / RECOVERED (vehicle report)'],['good','33k miles (if genuine)'],['good','Petrol 1.2 · ULEZ-exempt'],['warn','NOT flagged Run &amp; Drive — run unknown'],['warn','Damage front AND rear'],['warn','Cat N + theft marker = double flag'],['','No VAT on hammer']],
   bidGuide:{safe:600,target:1200,ceiling:1800},
   fees:[['Buyer fee (est — pull Copart calc)',175],['Lot retrieval fee',50],['Internet bid fee',60],['VAT on fees (20%)',57],['VAT on hammer','£0 · margin scheme']],
   feesTotal:342, transport:'Copart delivery ~£410 est (Chester→KT3) · confirm via lot calc · car-haulier ~£180–220',
   resale:{low:2600,mid:3100,high:3600,method:['Clean 2010 Polo 1.2 low-miles asks £3.5–4.5k','Cat N + two damage areas: 20–35% under','Genuine 33k lifts it; unconfirmed run caps it']},
-  history:{vrn:'—',motTo:'to confirm',
+  history:{vrn:'PN60WBT',motTo:'to confirm',
     trail:[],
-    trailNote:'CRITICAL: verify the 33k is genuine via the DVSA MOT trail + a recent pass (run evidence). VRN reveal pending.',
-    notes:[['info','Copart highlight: Additional Info (not Run &amp; Drive)'],['watch','Run status unknown'],['info','Damage both front + rear']],
+    trailNote:'STOLEN / RECOVERED per the vehicle report. MOT trail still to pull — but the theft marker alone makes it a pass.',
+    notes:[['bad','Vehicle report: STOLEN / RECOVERED'],['info','Copart highlight: Additional Info (not Run &amp; Drive)'],['watch','Run status unknown'],['info','Damage both front + rear']],
     advisories:[['info','Full MOT / damage read pending workup']]},
   repair:{note:'Front = minor lower grille/fog area · rear bumper · real eBay prices · black colour-match', rows:[
     ['Front lower grille + fog surround (cracked — minor, from photo)',11,22,'sourced','https://www.ebay.co.uk/itm/317352078358','eBay grille cover £11 + fog trim £11 — front damage is minor'],
@@ -278,7 +278,7 @@ const CARS = [
   id:'polo-match-12', lot:'54217926', title:'2012 VW Polo 1.2 Match', yr:'3dr', cat:'Cat N',
   sale:'Tue 28 Jul 2026', loc:'Gloucester', currentBid:200, verdict:'watch',
   headline:'THINNEST of the batch — ACV £3,675, both front + rear damage, NOT a confirmed runner, 3-door (less liquid), 98k miles. A pass unless it goes very cheap and confirms running.',
-  chips:[['good','Petrol 1.2 · ULEZ-exempt'],['good','Keys · Partial V5'],['good','Reserve MET'],['warn','NOT flagged Run &amp; Drive'],['warn','Damage front AND rear'],['warn','3-door — less liquid'],['warn','98k miles'],['warn','Thin ACV £3,675'],['','No VAT on hammer']],
+  chips:[['good','Petrol 1.2 · ULEZ-exempt'],['good','Keys · Partial V5'],['good','Reserve MET'],['warn','NOT flagged Run &amp; Drive'],['warn','Damage front AND rear'],['warn','3-door — less liquid'],['warn','98k miles'],['warn','Thin ACV £3,675'],['bad','Vehicle report NOT yet checked — provenance unverified'],['','No VAT on hammer']],
   bidGuide:{safe:300,target:700,ceiling:1100},
   fees:[['Buyer fee (est — pull Copart calc)',135],['Lot retrieval fee',50],['Internet bid fee',35],['VAT on fees (20%)',44],['VAT on hammer','£0 · margin scheme']],
   feesTotal:264, transport:'Copart delivery ~£400 est (Gloucester→KT3) · confirm via lot calc · car-haulier ~£150–200',
@@ -614,7 +614,7 @@ function renderCar(c){
 
   document.getElementById('app').innerHTML = h;
   window.scrollTo(0,0);
-  if(c.history&&c.history.trail) drawMileage(c.history.trail);
+  if(c.history&&c.history.trail&&c.history.trail.length) drawMileage(c.history.trail);
   if(c.repair && c.model && c.sold==null){ REPAIR_LIVE={diy:effSub(c,'b'),garage:effSub(c,'w')}; wireRepairEdits(c); }
   if(c.model) wireCalc(c);
 }
