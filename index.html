@@ -228,6 +228,29 @@ function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint'
 /* ============ DATA ============ */
 const CARS = [
 {
+  id:'clk-320', lot:'85607945', title:'2006 Mercedes CLK 320 Avantgarde Cabriolet', yr:'3.2 V6 Auto', cat:'Cat N',
+  sale:'Thu 30 Jul 2026', loc:'Whitburn (Scotland)', currentBid:250, bin:600, verdict:'watch',
+  headline:'WATCH — and the Scotland transport is the whole story. Copart’s delivery to KT3 is £1,148 (Whitburn is ~380 mi north) — on a £3–4k car that’s a killer, so a haulier at ~£450–600 is ESSENTIAL or this simply doesn’t work. Cheap V6 CLK cabrio with good bones (physical V5, 2 keys, spare, clean notes, genuine 67.8k), BUT run status is only “Engine starts” (not runs &amp; drives) and the front nearside wheel is splayed = front suspension/steering damage (the “undercarriage” code), so it likely won’t drive as-is. Only viable bought cheap (BIN £600) with a cheap haulier AND if the suspension is contained. Thin margin, high faff.',
+  chips:[['good','Physical V5 · 2 keys · spare wheel'],['good','Notes clean — no theft flag'],['good','Genuine 67,782 (odo + notes)'],['good','Petrol Euro 4 · ULEZ-compliant'],['bad','Copart delivery £1,148 — Scotland (use a haulier!)'],['bad','“Engine starts” only — front suspension damage'],['warn','Cat N: front-end + undercarriage'],['warn','Convertible — soft-top condition unconfirmed'],['','BIN £600 · reserve not met @ £250']],
+  bidGuide:{safe:300,target:500,ceiling:600},
+  fees:[['Buyer fee (comparable Copart band @ £600)',170],['Lot retrieval fee',50],['Internet bid fee',49],['VAT on fees (20%)',54],['VAT on hammer','£0 · no VAT']],
+  feesTotal:323, transport:'Copart delivery £1,148 to KT3 (REAL bid-box quote — Whitburn ~380 mi) — DO NOT use. Independent haulier ~£450–600 is essential to make this viable.',
+  resale:{low:2800,mid:3300,high:3800,method:['2006 CLK320 Avantgarde cabrio ~68k: clean asks ~£4–5k, achieves ~£3.5–4k','Cat N + repaired front + convertible: 20–30% under','HPI valuation still to confirm — run a Total Car Check like the others']},
+  history:{vrn:'— (reveal wouldn’t fire)',motTo:'pending — plate reveal',
+    trail:[],
+    trailNote:'Plate reveal wouldn’t fire this session (masked **06***). It has a PHYSICAL V5, so the plate is live — one click reveals it and the DVSA MOT + mileage will pull straight away. Odometer 67,782 is confirmed on the cluster and in the Copart notes.',
+    notes:[['good','Physical V5 present · 1 key + 2nd set available (2 keys) · spare wheel (Copart notes)'],['good','Notes clean — no theft / no adverse flag'],['bad','Run status “Engine Start Program” — engine starts, NOT run-and-drive verified'],['bad','Front nearside wheel splayed in the photos = front suspension/steering damage (the “undercarriage” code) → likely not driveable as-is'],['info','Cluster shows ESP / see-owner’s-manual — likely impact fault codes; no airbag deployment visible'],['info','Vehicle report (finance/write-off/owners) — needs your screenshot or a Total Car Check; physical V5 means it checks fine']],
+    advisories:[['info','MOT advisories pending the plate reveal']]},
+  repair:{note:'Front suspension is the real repair (splayed wheel), not just a bumper. Physical V5 = no V62 needed. Real ranges — firm up on the plate + report.', rows:[
+    ['Front suspension — control arm(s) + track rod + alignment (splayed wheel)',150,500,'researched','','Merc front arms ~£60–120 ea + track rod ~£30 + alignment; £150 DIY best → ~£500 if hub/strut/multiple arms + garage.'],
+    ['Front bumper / cosmetic tidy',60,200,'researched','','Used bumper + paint/refit — the front looks largely intact, so modest.'],
+    ['Diagnose “engine starts” + clear crash/ESP codes',25,120,'researched','','OBD reader vs garage diag — confirm it actually drives once the suspension is fixed.'],
+    ['Soft-top roof check (convertible — condition unconfirmed)',0,150,'conditional','','£0 if the hood’s fine · allowance for hydraulics/seals if not.']],
+    subBest:235, subWorst:970},
+  model:{fees:323,transport:600,recommission:55,repairDiy:235,repairGarage:970,targetProfit:800,
+    resale:{low:2800,mid:3300,high:3800},bidDefault:500,bidMin:0,bidMax:800,bidStep:25}
+},
+{
   id:'z4-23i', lot:'58199446', title:'2011 BMW Z4 23i sDrive M Sport', yr:'2.5 6cyl Auto', cat:'Cat N',
   sale:'Ended 24 Jul 2026', loc:'Sandwich', currentBid:2300, verdict:'pass', archived:true,
   headline:'OUTBID — didn’t win. Sold for more than £2,300, above your £2,250 max (exact hammer hidden from non-buyers). Good discipline holding the line — with the broken roof and a realistic ~£5–6k resale, chasing it higher was the losing move. Workup kept: HPI clean (no finance, not stolen, genuine 68k, V5C) but Cat N front-nearside accident, folding roof “does not fully lower”, only 1 key, rear alloys fractured two years running, 8 keepers. These come round again.',
