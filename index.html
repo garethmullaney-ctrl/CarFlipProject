@@ -229,8 +229,8 @@ function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint'
 const CARS = [
 {
   id:'z4-23i', lot:'58199446', title:'2011 BMW Z4 23i sDrive M Sport', yr:'2.5 6cyl Auto', cat:'Cat N',
-  sale:'Fri 24 Jul 2026', loc:'Sandwich', currentBid:1550, verdict:'review',
-  headline:'REVIEW — buy it CHEAP or leave it. HPI now run (Total Car Check): FINANCE CLEAR, not stolen, no clocking, genuine 68k, V5C exists — all the scary stuff is clean. Cat N = front-nearside accident, 21 Apr 2026. The catch stack: roof “DOES NOT FULLY LOWER” (£445–595 typical specialist fix, up to ~£900 hydraulics), only 1 key, rear alloys fractured two years running, and 8 keepers. Reality check on resale — the report values a CLEAN one at ~£6.5k private, so a Cat-N-with-broken-roof realistically resells ~£5–6k, not the £6–8k I first modelled. Still a deal, but only bought low: target ~£2,400, hard ceiling ~£2,750.',
+  sale:'Ended 24 Jul 2026', loc:'Sandwich', currentBid:2300, verdict:'pass', archived:true,
+  headline:'OUTBID — didn’t win. Sold for more than £2,300, above your £2,250 max (exact hammer hidden from non-buyers). Good discipline holding the line — with the broken roof and a realistic ~£5–6k resale, chasing it higher was the losing move. Workup kept: HPI clean (no finance, not stolen, genuine 68k, V5C) but Cat N front-nearside accident, folding roof “does not fully lower”, only 1 key, rear alloys fractured two years running, 8 keepers. These come round again.',
   chips:[['good','HPI: finance CLEAR · not stolen'],['good','Genuine 68k · no clocking (HPI+DVSA)'],['good','Runs &amp; drives · 2.5 six M Sport · ULEZ-exempt'],['good','Engine bay complete · oyster leather'],['bad','ROOF DOES NOT FULLY LOWER (malfunction)'],['warn','8 keepers — resale haggling point'],['warn','Rear alloys fractured 2024 + 2025 (MOT)'],['warn','Only 1 key'],['warn','Cat N: front-nearside accident (Apr 2026)'],['','No VAT on hammer']],
   bidGuide:{safe:1800,target:2400,ceiling:2800},
   fees:[['Buyer fee (Copart calc @ £2,250)',340],['Lot retrieval fee',50],['Internet bid fee',89],['VAT on fees (20%)',96],['VAT on hammer','£0 · no VAT']],
@@ -252,7 +252,7 @@ const CARS = [
 },
 {
   id:'focus-st', lot:'47681476', title:'2014 Ford Focus ST', yr:'2.0T 5dr', cat:'Cat N',
-  sale:'Mon 27 Jul 2026', loc:'Bristol', currentBid:175, verdict:'review',
+  sale:'Mon 27 Jul 2026', loc:'Bristol', currentBid:2050, verdict:'review',
   headline:'CONFIRMED RUNNER but MODIFIED — colour-flip wrap, black alloys, lowered, tuning-firm decal (likely remapped). Copart ACV £10,077, but modified + Cat N = a narrow, haggle-hard buyer pool. Specialist flip, not bread-and-butter — the classic “would I buy it if I didn’t fancy it?” car.',
   chips:[['good','Run &amp; Drive (Copart-flagged)'],['good','Petrol 2.0T · ULEZ-exempt'],['good','Keys present'],['good','Copart ACV £10,077'],['warn','Modified: wrap + alloys + lowered + likely remap'],['warn','Front bumper / splitter damage'],['warn','Wrap complicates paint-match'],['warn','V5 reference only — V62 needed'],['warn','Cherished plate not on DVSA — mileage unverifiable online'],['warn','No Copart notes; report PDF unread — provenance via your screenshot'],['','Reserve not met @ £175']],
   bidGuide:{safe:1500,target:2500,ceiling:3500},
@@ -275,7 +275,7 @@ const CARS = [
 },
 {
   id:'polo-moda', lot:'54453106', title:'2010 VW Polo 1.2 Moda', yr:'5dr', cat:'Cat N',
-  sale:'Tue 28 Jul 2026', loc:'Chester', currentBid:250, verdict:'review',
+  sale:'Tue 28 Jul 2026', loc:'Chester', currentBid:400, verdict:'review',
   headline:'REVIEW — YOUR risk call (kept alive). Notes/report flag STOLEN / RECOVERED (VRN PN60WBT) — a serious provenance mark that hits resale and buyer trust, though clean-title recovered cars do sell at a discount. It IS a confirmed Runs &amp; Drives with 33k. Big catch: Chester delivery is £740 on Copart — a cheap haulier is essential to make it work. Explore the report fully before bidding.',
   chips:[['bad','STOLEN / RECOVERED (notes + report)'],['good','Runs &amp; drives (Copart-verified)'],['good','~30k miles CONFIRMED (DVSA MOTs)'],['good','MOT valid to 7 Jan 2027'],['good','Petrol 1.2 · ULEZ-exempt'],['warn','Damage front AND rear'],['warn','Chester delivery £740 (Copart) — use a haulier'],['warn','No V5 — V62 needed'],['','No VAT on hammer']],
   bidGuide:{safe:600,target:1200,ceiling:1800},
@@ -301,7 +301,7 @@ const CARS = [
 },
 {
   id:'polo-match-12', lot:'54217926', title:'2012 VW Polo 1.2 Match', yr:'3dr', cat:'Cat N',
-  sale:'Tue 28 Jul 2026', loc:'Gloucester', currentBid:200, verdict:'watch',
+  sale:'Tue 28 Jul 2026', loc:'Gloucester', currentBid:250, verdict:'watch',
   headline:'THIN margin — ACV £3,675, 3-door (less liquid), 98k miles, front+rear damage. BUT it is a confirmed Runs &amp; Drives and the notes are clean (2 keys, spare wheel, tyre kit — no theft flag). Report PDF is unreadable to me; provenance (owners/plate history) needs your screenshot, but nothing adverse in the notes.',
   chips:[['good','Runs &amp; drives (Copart-verified)'],['good','MOT to Aug 2026 · no clocking (DVSA)'],['good','Notes clean — 2 keys, spare, tyre kit'],['good','Petrol 1.2 · ULEZ-exempt'],['good','Reserve MET'],['warn','Damage front AND rear'],['warn','3-door · 98k · thin ACV £3,675'],['warn','MOT advisory: exhaust flexi leak + CV boot'],['','No VAT on hammer']],
   bidGuide:{safe:300,target:700,ceiling:1100},
@@ -399,7 +399,7 @@ const CARS = [
 },
 {
   id:'boxster', lot:'55253806', title:'2011 Porsche Boxster', yr:'987.2 S', cat:'Cat N',
-  sale:'Mon 27 Jul 2026', loc:'Wisbech', currentBid:2900, bin:6500, verdict:'review',
+  sale:'Mon 27 Jul 2026', loc:'Wisbech', currentBid:3350, bin:6500, verdict:'review',
   headline:'FLIP-ONLY, no keeper premium. A good business buy at ≤£4,750 (does-not-run risk absorbed with cushion at that price) — happy to lose it. BIN £6,500 = PASS. MOT’d & drove 656 miles ago, so the no-start is probably crash-electrical, not a dead engine.',
   chips:[['good','Gen2 987.2 — no IMS bearing issue'],['good','MOT-passed & driving Apr ’26'],['good','79k genuine · no clocking'],
     ['good','MOT to Mar 2027'],['warn','“Does not run” at Copart'],['warn','Roof won’t retract'],
