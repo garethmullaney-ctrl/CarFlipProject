@@ -625,8 +625,8 @@ function renderCar(c){
     <div class="drow" style="margin-top:14px;border:0;padding-bottom:0"><span class="k">${c.sold!=null?'Sold price':'Current bid'}</span><span class="v">${fmt(c.sold!=null?c.sold:c.currentBid)}</span></div>
     ${(c.bin&&c.sold==null)?`<div class="drow" style="border:0;padding-top:2px"><span class="k">Buy now (BIN)</span><span class="v">${fmt(c.bin)}</span></div>`:''}</div></section>`;
 
-  // copart + expected sale
-  h += `<div class="grid2">
+  // copart + expected sale (skip for no-numbers 'avoid'/parts-only cards)
+  if(c.resale) h += `<div class="grid2">
     <section><div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Copart &amp; costs</span></div>
       <div class="sec-body">${feesRows(c)}</div></section>
     <section><div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Expected sale</span></div>
