@@ -548,7 +548,7 @@ function rowHtml(c){
     <td>${c.cat}</td>
     <td class="num">${bidCell}</td>
     <td class="num">${binCell}</td>
-    <td class="num">${fmt(c.resale.mid)}</td>
+    <td class="num">${c.resale?fmt(c.resale.mid):'<span class="dash">—</span>'}</td>
     <td class="num">${costCell}</td>
     <td class="num">${profCell}</td>
     <td><span class="vchip" style="color:${vc};border-color:${vc};background:${vt}">${VT[c.verdict]}</span></td>
