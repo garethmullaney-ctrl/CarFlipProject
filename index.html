@@ -228,6 +228,20 @@ function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint'
 /* ============ DATA ============ */
 const CARS = [
 {
+  id:'gle-flood', lot:'52790736', title:'2016 Mercedes GLE 350d AMG Line', yr:'3.0 V6d · 4MATIC 9G', cat:'Cat N',
+  sale:'Mon 27 Jul 2026', loc:'Bristol', currentBid:4100, verdict:'pass', archived:true,
+  headline:'AVOID — FLOOD DAMAGE. It looks gorgeous (AMG Line, clean panels, ACV £14k for a £4.1k bid) — and that price gap IS the warning, not the bargain. Copart notes state “VEHICLE EXPOSED WATER DAMAGE”; primary damage is Water/Flood, it DOES NOT RUN, the cluster is lit with a full row of fault lights, ~117k miles, no V5, 1 key. Flood damage on a 2016 electronics-heavy Merc is the one salvage type even seasoned flippers refuse: the repair is genuinely UNCOSTABLE — water corrodes ECUs, connectors and looms and the faults cascade for months. It’s not a cosmetic flip, it’s a money pit that also has to be sold AS flood-damaged (which craters resale). Only rational use is breaking for parts. Hard PASS.',
+  chips:[['bad','WATER / FLOOD (Copart notes confirm)'],['bad','DOES NOT RUN · cluster throwing faults'],['bad','2016 premium Merc = dozens of ECUs to corrode'],['warn','~117k miles (cluster) · no V5 · 1 key'],['good','Cosmetically clean — that’s the bait'],['','ACV £14k vs £4.1k bid = flood stigma, not value']],
+  bidGuide:{safe:0,target:0,ceiling:0},
+  bidGuideNote:'AVOID — flood write-off. Not a price to negotiate; a car to walk past (parts-only).',
+  history:{vrn:'— (not pursued)',motTo:'n/a',
+    trail:[],
+    trailNote:'Deliberately not worked up further — a flood write-off is an automatic pass for a repair-and-flip, so no MOT/HPI pulled (not worth the £3.99). Cluster reads ~117k.',
+    notes:[['bad','Copart notes: “VEHICLE EXPOSED WATER DAMAGE”'],['bad','Primary damage Water/Flood · Run condition: Does not run'],['bad','Cluster lit with a full row of warning lights = flooded electronics throwing faults'],['warn','No V5 (V62 needed) · 1 key · ~117k miles'],['info','Externally clean, no crash damage — which is exactly the flood trap']],
+    advisories:[['bad','Flood = UNCOSTABLE repair. Water kills ECUs/looms/connectors; faults emerge for months. AVOID / parts-only.']]},
+  pendingRepair:'No repair estimate — on purpose. Flood damage on a modern electronics-heavy Mercedes can’t be costed as a fixed job: you can’t know which of the dozens of control modules, connectors and wiring looms the water has killed until you dry it out, power it up and watch faults cascade over weeks. A single flooded SAM / comfort / transmission module is £300–1,500, and there are many — plus loom corrosion, contaminated 4MATIC + 9G-Tronic fluids, and interior mould. Even if you get it running, it must legally be sold AS flood-damaged, which craters resale far worse than a cosmetic Cat N. The only rational play on a flood car is breaking it for parts — not repairing to flip. Pass.'
+},
+{
   id:'clk-320', lot:'85607945', title:'2006 Mercedes CLK 320 Avantgarde Cabriolet', yr:'3.2 V6 Auto', cat:'Cat N',
   sale:'Passed 25 Jul 2026', loc:'Whitburn (Scotland)', currentBid:250, bin:600, verdict:'pass', archived:true,
   headline:'PASSED — the Scotland transport killed it. Copart delivery to KT3 £1,148 (Whitburn ~380 mi); even a haulier ~£450–600 is heavy on a £3–4k car. Add “Engine starts” only + front suspension damage (splayed wheel) + a cheap convertible resale, and the margin’s too thin for the faff. Good bones (physical V5, 2 keys, spare, genuine 67.8k, clean notes) but not worth it from that far north. Workup kept.',
@@ -422,8 +436,8 @@ const CARS = [
 },
 {
   id:'boxster', lot:'55253806', title:'2011 Porsche Boxster', yr:'987.2 S', cat:'Cat N',
-  sale:'Mon 27 Jul 2026', loc:'Wisbech', currentBid:4350, bin:6500, verdict:'review',
-  headline:'FLIP-ONLY, no keeper premium. A good business buy at ≤£4,750 (does-not-run risk absorbed with cushion at that price) — happy to lose it. BIN £6,500 = PASS. MOT’d & drove 656 miles ago, so the no-start is probably crash-electrical, not a dead engine.',
+  sale:'Passed 26 Jul 2026', loc:'Wisbech', currentBid:4350, bin:6500, verdict:'pass', archived:true,
+  headline:'PASSED — a considered pass, not a numbers pass. The maths worked at ≤£4,750, but it crept to £4,350 and the BIN is £6,500 (£1,750 over the disciplined ceiling). Two honest reasons to walk: (1) it’s a car Gareth would want to KEEP not flip — the exact emotional-trap car — and (2) the cash isn’t free yet (finishing the Bentley), so tying £7–9k into a complex, “does-not-run”, could-sit-for-weeks Porsche risks the cashflow. The dream keep is real, but not this silver one on borrowed headroom. A cleaner 987.2 S (actually runs & drives) will come round when the money’s genuinely his. Full workup kept for reference.',
   chips:[['good','Gen2 987.2 — no IMS bearing issue'],['good','MOT-passed & driving Apr ’26'],['good','79k genuine · no clocking'],
     ['good','MOT to Mar 2027'],['good','HPI: finance CLEAR · not stolen'],['warn','“Does not run” at Copart'],['warn','Roof won’t retract'],
     ['warn','No V5 · only 1 key'],['bad','Write-off coded FULL FRONT + both corners (rad/condenser risk)'],['warn','Porsche backlog: coolant leak, corroded brake pipes, worn discs'],['','BIN £6,500 · reserve not met @ £3,350']],
