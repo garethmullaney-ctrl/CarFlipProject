@@ -815,7 +815,10 @@ function wireCalc(c){
     const vEl=document.getElementById('verdict');vEl.style.background=bg;vEl.style.borderColor=bd;
     document.getElementById('verdictT').textContent=t;document.getElementById('verdictT').style.color=col;
     document.getElementById('verdictD').textContent=d;
-    if(c.sold==null){const mv=document.getElementById('mastVerdict');mv.textContent=t+' @ '+fmt(bid);mv.style.color=col;mv.style.borderColor=col;mv.style.background=bg;}
+    // Masthead shows the live economic call (GO/OK/THIN/STOP @ bid) ONLY for cars that aren't gated.
+    // review/pass cars keep their static verdict badge (REVIEW/PASS) so a gated car never reads "GO"
+    // just because the money works — the economic call still shows in full in the Bid-guide verdict box below.
+    if(c.sold==null && c.verdict!=='review' && c.verdict!=='pass'){const mv=document.getElementById('mastVerdict');mv.textContent=t+' @ '+fmt(bid);mv.style.color=col;mv.style.borderColor=col;mv.style.background=bg;}
   }
   document.getElementById('bid').addEventListener('input',e=>{bid=+e.target.value;paint();});
   document.querySelectorAll('#repToggle button').forEach(b=>b.addEventListener('click',()=>{
