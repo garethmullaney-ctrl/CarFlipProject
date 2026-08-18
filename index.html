@@ -230,9 +230,9 @@ const CARS = [
 {
   id:'w-golf18-senav', lot:'64877796', title:'2018 VW Golf 1.5 TSI SE Nav', yr:'1.5 EVO · 5dr · 6-spd Manual', cat:'Cat N',
   sale:'WATCHLIST · Sale Mon 25 Aug · Gloucester', loc:'Gloucester (GL2)', currentBid:125, verdict:'watch',
-  headline:'WATCH — arguably the pick of the watchlist. 2018 Golf 1.5 TSI SE Nav, black, EXCEPTIONAL 23,891 miles (genuine — DVSA trail 7k in 2021 → 24k now, no clocking), valid MOT to Oct 2026, petrol/ULEZ-ok, runs &amp; drives, 2 KEYS + spare + floor mats. Cat N, damage FRONT END + SIDE but it looks LIGHT in the photos (bumper corner + some side scuffs, wheels straight). ACV £13,469. ONE flag from the notes: “ENGINE MANAGEMENT LIGHT ILLUMINATED” — could be a crash-disturbed sensor/connector (cheap) or a real fault → budget a diagnostic and ideally a WhatsApp viewing. No V5 (V62). Fresh listing at £125 but low-mile Golfs get bid up — watch where it lands. If it wins sensibly and the EML is minor, the margin is strong (~£11k resale on 24k miles).',
-  lede:'⭐ <b>WATCH — best of the watchlist.</b> 2018 Golf SE Nav, <b>genuine 23.9k miles</b>, valid MOT, 2 keys, light Cat N front+side damage. One caveat: an <b>EML light</b> (crash sensor or fault — needs a diagnostic), and no V5 (V62). Fresh at £125; strong margin if it wins cheap and the EML is minor.',
-  chips:[['good','EXCEPTIONAL 23.9k miles · genuine, no clocking · valid MOT to Oct ’26'],['good','2 keys + spare + floor mats · desirable SE Nav · ULEZ-ok'],['good','Light Cat N damage (front bumper + side scuffs) · wheels straight'],['warn','NOTES: “Engine management light illuminated” — diagnostic needed'],['warn','No V5 (V62) · front + side (two damage areas)'],['info','Fresh listing (£125) — low-mile Golfs bid up; watch the price']],
+  headline:'WATCH — good CAR, but a bigger repair than I first called (CORRECTED after Gareth flagged my rushed read). 2018 Golf 1.5 TSI SE Nav, black, EXCEPTIONAL 23,891 miles (genuine, no clocking), valid MOT to Oct 2026, ULEZ-ok, runs &amp; drives, 2 KEYS + spare + floor mats, ACV £13,469. The DAMAGE is a NEARSIDE SIDESWIPE down the whole car: front wing DENTED, front bumper corner scuffed, and a heavy scrape-and-dent through the REAR DOOR into the REAR QUARTER PANEL + sill (bare metal showing). The rear quarter is a WELDED panel → bodyshop fill-pull-and-blend, and a multi-panel black paint blend = NOT a first-timer DIY job (hand the paint/quarter to a bodyshop). Also “ENGINE MANAGEMENT LIGHT ILLUMINATED” (diagnostic) and no V5 (V62). The low miles still make it worth watching, but it’s a bodyshop project (~£850–2,000 in repair) and it’ll bid up — so the margin is tighter than it first looked, not the light flip I wrongly called.',
+  lede:'⚠ <b>WATCH — corrected read.</b> Lovely low-miles car (genuine 23.9k, valid MOT, 2 keys) BUT the damage is a <b>nearside sideswipe</b>: front wing dented + rear door + <b>rear quarter panel</b>/sill — a multi-panel <b>bodyshop</b> job (welded quarter + black blend), not the light flip I first called (thanks Gareth for catching it). Plus an EML light and no V5. Still viable on the miles, but tighter margin and not a beginner DIY.',
+  chips:[['good','EXCEPTIONAL 23.9k miles · genuine, no clocking · valid MOT to Oct ’26'],['good','2 keys + spare + floor mats · desirable SE Nav · ULEZ-ok'],['bad','NEARSIDE SIDESWIPE: front wing DENTED + rear door + rear QUARTER/sill'],['bad','Rear quarter = welded panel + multi-panel black paint → BODYSHOP, not DIY'],['warn','NOTES: “Engine management light illuminated” — diagnostic'],['warn','No V5 (V62) · corrected read after a rushed first pass (Gareth caught it)']],
   bidGuide:{safe:3000,target:4000,ceiling:4800},
   fees:[['Buyer fee (scaled ~£4,000)',480],['Lot retrieval + internet',110],['VAT on fees (20%)',118],['VAT on hammer','£0 · margin']],
   feesTotal:640, transport:'Copart delivery ~£320 to KT3 (Gloucester ~120 mi) · haulier ~£200–260',
@@ -242,14 +242,17 @@ const CARS = [
     trailNote:'DVSA (LC68 CXP): 7,339 (2021) → 19,664 (Oct 2025), Copart 23,891 now. Genuine ~3–4k/yr, no clocking. Valid MOT to 16 Oct 2026. A cherished low-use car.',
     notes:[['good','2 keys + spare wheel + tyre kit + floor mats'],['warn','“ENGINE MANAGEMENT LIGHT ILLUMINATED” — diagnostic before you rely on it'],['bad','No V5 — V62 needed'],['info','⚠ Run a £3.99 Total Car Check (finance/HPI) before bidding']],
     advisories:[['good','Genuine 23.9k, no clocking, valid MOT — a lovely low-miler'],['warn','Front + side damage (two areas) — light in photos, confirm on viewing'],['info','1.5 TSI EVO (EA211 evo) — watch for the known cylinder-deactivation/hesitation but generally sound']]},
-  repair:{note:'HD photo read: light — front bumper corner + some side scuffs, all wheels straight, no airbags. The EML light is the one unknown (crash sensor vs fault).', rows:[
-    ['Front-end — bumper / light + side scuffs (both areas, light)',200,600,'researched','https://www.ebay.co.uk/sch/i.html?_nkw=vw+golf+mk7+front+bumper','Light front + side cosmetic — used bumper/blend; confirm nothing hides behind.'],
-    ['EML diagnostic — engine management light',0,200,'conditional','','£0 if it clears after the front repair / a reset, up to ~£200 for a diagnostic + a sensor if it persists.'],
-    ['Paint / blend + detailing (black)',80,250,'researched','','Blend the repaired areas + compound/polish the black for the ad.'],
+  repair:{note:'CORRECTED after Gareth flagged my rushed single-screenshot read. A proper HD deep look shows a NEARSIDE SIDESWIPE, not light damage: front wing DENTED, front bumper corner scuffed, and a heavy scrape/dent through the REAR DOOR into the REAR QUARTER PANEL + sill (through to bare metal). The rear quarter is welded → bodyshop repair + a multi-panel black blend. This is a bodyshop project, not a beginner DIY.', rows:[
+    ['Nearside front wing — DENTED (repair/pull or replace + paint)',150,300,'researched','https://www.ebay.co.uk/sch/i.html?_nkw=vw+golf+mk7+n%2Fs+front+wing','Creased above the arch — dent-pull + blend, or a colour-matched used wing.'],
+    ['Front bumper corner — scuffed',60,150,'researched','https://www.ebay.co.uk/sch/i.html?_nkw=vw+golf+mk7+front+bumper',''],
+    ['Nearside rear door — scraped + dented',150,350,'researched','https://www.ebay.co.uk/sch/i.html?_nkw=vw+golf+mk7+rear+door','Skin/repair + paint, or a used door if creased through.'],
+    ['Nearside rear QUARTER + sill — dented/scraped (BODYSHOP: welded panel, fill-pull + blend)',250,600,'researched','','The pricey one — a welded body panel, so a proper bodyshop fill/pull + multi-panel black blend. Not DIY.'],
+    ['EML diagnostic — engine management light',0,200,'conditional','','£0 if it clears after repair / a reset; up to ~£200 for a diagnostic + sensor.'],
+    ['Detailing — compound + polish (black)',60,150,'researched','',''],
     ['Service — sale-ready',60,100,'planned','',''],
     ['3-month warranty',120,120,'planned','','']],
-    subBest:460, subWorst:1270},
-  model:{fees:640,transport:320,recommission:80,repairDiy:460,repairGarage:1270,targetProfit:1500,
+    subBest:850, subWorst:1970},
+  model:{fees:640,transport:320,recommission:80,repairDiy:850,repairGarage:1970,targetProfit:1500,
     resale:{low:10000,mid:11000,high:12000},bidDefault:4000,bidMin:0,bidMax:7000,bidStep:50}
 },
 {
