@@ -228,7 +228,39 @@ function vTint(v){const m={go:'--go-tint',ok:'--caution-tint',thin:'--stop-tint'
 /* ============ DATA ============ */
 const CARS = [
 {
-  id:'w-golf18-senav', lot:'64877796', title:'2018 VW Golf 1.5 TSI SE Nav', yr:'1.5 EVO · 5dr · 6-spd Manual', cat:'Cat N',
+  id:'w-polo22-life', lot:'65796086', title:'2022 VW Polo 1.0 TSI Life', yr:'1.0 TSI 95 · 5dr · 5-spd Manual · Reef Blue', cat:'Cat N',
+  sale:'Mon 21 Sep 12:30 · Whitburn', loc:'Whitburn, Scotland (EH47)', currentBid:450, verdict:'review',
+  headline:'REVIEW — a genuinely BOLT-ON front on a 2022 Polo Life, capped at REVIEW only because the vehicle report is unverified and four repair lines still need firm quotes. Blue, 45,197 miles (DVSA sequence 30,667 → 40,939 → 45,197, rising cleanly, no clocking), MOT VALID TO 27 APR 2027 (no recommission test needed), runs &amp; drives, 1 key, NO V5 (V62), not VAT-qualifying, ACV £12,738 (ignored). DAMAGE (all 14 photos read in HD): front bumper torn off its mounts and split, bonnet folded at both corners, NEARSIDE WING creased on its top edge + dented at the nose, OFFSIDE headlamp MISSING, nearside LED lamp in place with intact lens but broken lugs, upper grille gone, WINDSCREEN cracked (camera-equipped → ADAS recalibration). Under the bonnet the crash beam, condenser, radiator and lock carrier are all straight, no fluid loss, NO AIRBAGS deployed, all four wheels vertical and central. Rear-end secondary = offside rear bumper corner SCUFFS only. Cluster: triangle + ESC lamps (no airbag/EPC) — consistent with the Front Assist radar going with the bumper; needs a scan. The two things that bite: £1,148 Copart delivery from Whitburn (a fifth of the buy-in) and no V5. Parts are cheap and real (bonnet £170, wing £50, bumper £105, lamps £199 + £105 = £629 sourced); the unknowns are paint on three metallic-blue panels, the camera windscreen, grille and scan. GET THE REPORT + FOUR QUOTES BEFORE BIDDING. Bid guide is PROVISIONAL until then.',
+  lede:'⚠ <b>REVIEW — capped, not a GO.</b> The <b>opposite of the Bristol airbag car</b>: a bolt-on front (bumper, bonnet, NS wing, two LED lamps, grille, camera windscreen), <b>no airbags, no structural push</b>, clean rising MOT trail and a <b>valid MOT to Apr 2027</b>. Sourced parts are only <b>£629</b>. What holds it at REVIEW: <b>provenance unverified</b> (report screenshot needed), <b>no V5</b>, <b>£1,148 delivery from Whitburn</b>, and four lines (paint ×3 panels, windscreen + calibration, grille, scan) still <b>£0 · quote needed</b>. Bid guide is provisional until those land.',
+  chips:[['good','Bolt-on front: beam, rads, lock carrier straight · NO airbags · wheels true'],['good','MOT valid to 27 Apr 2027 · clean DVSA trail 30.7k → 40.9k → 45.2k · no clocking'],['good','Sourced parts £629 (bonnet £170 · wing £50 · bumper £105 · lamps £199+£105)'],['bad','£1,148 Copart delivery Whitburn → KT3 (bid-box quote, 15 Sep)'],['bad','⚠ PROVENANCE UNVERIFIED — vehicle report screenshot needed · cannot be a GO'],['warn','No V5 (V62) · 1 key · windscreen cracked (camera → recalibration) · 4 lines quote-needed']],
+  bidGuide:{safe:2500,target:3000,ceiling:3500},
+  fees:[['Buyer fee (calibrated band @ £3,500 — NOT pulled, calculator drawer would not take input; RUN IT)',470],['Lot retrieval + internet',110],['Env + VAT on fees (20%)',120],['VAT on hammer','£0 · margin']],
+  feesTotal:700, transport:'Copart delivery quote £1,148 to KT3 3HZ (verified in bid box, 15 Sep) · Whitburn ~400 mi',
+  resale:{low:8700,mid:9500,high:10000,method:['LIVE Autotrader 15 Sep (2021–23 Polo manual petrol, 30–60k, sorted by distance from KT3, 281 results): EXACT-TRIM 2022 1.0 TSI/EVO Life 5dr asks — 32,000 mi £12,990 (Guildford) · 33,423 mi £13,350 · 48,660 mi £12,395 (Iver) · 54,618 mi £12,490 (Ashford) · 56,895 mi £12,795 (Dartford) → clean asking at 45k ~£12,400–12,800','Copart ACV £12,738 ignored as an anchor — footnote only','Cat N at 20–30% under the REAL clean spread → £8,700–10,000; asking ≠ achieved → mid £9,500']},
+  history:{vrn:'SL22 NGG',motTo:'27 Apr 2027',
+    trail:[['25',30667],['26',40939]],
+    trailNote:'DVSA (SL22 NGG): registered 19 Apr 2022 · 16 Apr 2025 PASS 30,667 (adv: OS front tyre 3mm, both rear tyres cracking) · 28 Apr 2026 PASS 40,939 (adv: both front discs pitted/scored) · Copart 45,197 now. Rising ~10k/yr, no discrepancy. MOT valid to 27 Apr 2027. No recalls on file.',
+    notes:[['info','Copart notes (verbatim, complete): NUMBER OF KEYS 1 · WINDSCREEN DAMAGED · TYRE KIT'],['bad','⚠ VEHICLE REPORT NOT SEEN — stolen/recovered, finance, prior write-off all unverified → capped at REVIEW'],['bad','No V5 — V62 needed; check the report for WHY the logbook is missing'],['warn','Front Assist camera in the windscreen → replacement glass needs ADAS recalibration'],['info','⚠ Run a £3.99 Total Car Check (finance/HPI) before bidding']],
+    advisories:[['good','Photo read 15 Sep, all 14 in HD: bumper off + split, bonnet folded both corners, NS wing creased/dented, OS lamp missing, NS lamp lugs broken, grille gone, screen cracked; beam/rads/lock carrier straight; no airbags; rear = OS bumper corner scuffs only'],['warn','Cluster: triangle + ESC lamps, no airbag/EPC — likely radar/Front Assist off with the bumper; SCAN to prove'],['warn','MOT advisories to price in: both front discs pitted, both rear tyres cracking'],['info','1.0 TSI EA211 3-cyl — generally sound; 5-spd manual, no DSG risk'],['info','✅ sources checked 15 Sep: resale = live Autotrader exact-trim comps; parts = eBay UK item pages (linked); transport £1,148 = Copart bid-box quote; fees = CALIBRATED BAND, not pulled — run the calculator']]},
+  repair:{note:'Parts sourced 15 Sep from live eBay UK item pages (delivery to confirm on each). BOLT-ON front: bumper, bonnet, NS wing, both LED lamps, grille. The money is PAINT (three metallic-blue panels, bodyshop blend) + the CAMERA WINDSCREEN (glass + ADAS recalibration). Lines in red are £0 · quote needed — a firm quote, not a guess. Worst column carries flagged rate figures so the worst case is honest; verdict leans on the garage column.', rows:[
+    ['Bonnet — primed steel, facelift 2021+ (eBay, real)',170,178,'sourced','https://www.ebay.co.uk/itm/335471262328','Real eBay UK 15 Sep: primed facelift bonnet £170.00 (item 335471262328); genuine 2G0823155G £177.50 (item 137111800055).'],
+    ['NS front wing — primed 2G0821105 (eBay, real)',50,50,'sourced','https://www.ebay.co.uk/itm/125510413289','Real eBay UK 15 Sep: £50.49 (item 125510413289). Same part no. pre/post facelift — confirm fit before ordering.'],
+    ['Front bumper — primed 2G0807217AFGRU, 2021> (eBay, real)',105,105,'sourced','https://www.ebay.co.uk/itm/166493344416','Real eBay UK 15 Sep: £104.95 (item 166493344416); alt no-sensor 2022–25 primed £99.99 (item 227245041923).'],
+    ['OS LED headlamp 2G2941006D (eBay, real)',199,199,'sourced','https://www.ebay.co.uk/itm/335765436807','Real eBay UK 15 Sep: £199.00 (item 335765436807). Lamp is MISSING from the car.'],
+    ['NS LED headlamp 2G2941005D genuine (eBay, real)',105,105,'sourced','https://www.ebay.co.uk/itm/178440126269','Real eBay UK 15 Sep: £105.00 (item 178440126269). Lens intact on the car — lug-repair kit may save this line (upside, not assumed).'],
+    ['Upper grille (facelift)',0,60,'£0 · quote needed','','⚠ Not yet sourced — needs the facelift part no. from the VIN.'],
+    ['Windscreen (camera) + ADAS recalibration — mobile fitter',0,450,'£0 · quote needed','','⚠ NOT a live quote — worst is a flagged rate. Get Autoglass / National Windscreens quote on SL22 NGG.'],
+    ['Paint &amp; blend — bonnet + NS wing + bumper, metallic blue, bodyshop',0,900,'£0 · quote needed','','⚠ NOT a live quote — worst is a flagged rate. Three panels blended; get a firm bodyshop quote. Garage-tier for a first-timer.'],
+    ['Diagnostic scan + Front Assist radar (if damaged with bumper)',0,350,'£0 · quote needed','','⚠ £0 if lamps clear after the bumper goes back on; worst is a flagged rate for a used radar + coding.'],
+    ['Rear bumper OS corner — smart repair (scuffs only)',0,150,'£0 · quote needed','','⚠ NOT a live quote — worst is a flagged rate.'],
+    ['V62 (no V5) — MOT already valid to Apr 2027',25,25,'planned','https://www.gov.uk/vehicle-log-book','gov.uk V62 fee.'],
+    ['3-month warranty',100,100,'planned','','']],
+    subBest:754, subWorst:2672},
+  model:{fees:700,transport:1148,recommission:25,repairDiy:754,repairGarage:2672,targetProfit:1000,
+    resale:{low:8700,mid:9500,high:10000},bidDefault:3000,bidMin:0,bidMax:6000,bidStep:50}
+},
+{
+  id:'w-golf18-senav', lot:'64877796', archived:true, title:'2018 VW Golf 1.5 TSI SE Nav', yr:'1.5 EVO · 5dr · 6-spd Manual', cat:'Cat N',
   sale:'SOLD £6,500 · Gloucester', loc:'Gloucester (GL2)', currentBid:6500, verdict:'sold',
   headline:'WATCH — good CAR, but a bigger repair than I first called (CORRECTED after Gareth flagged my rushed read). 2018 Golf 1.5 TSI SE Nav, black, EXCEPTIONAL 23,891 miles (genuine, no clocking), valid MOT to Oct 2026, ULEZ-ok, runs &amp; drives, 2 KEYS + spare + floor mats, ACV £13,469. The DAMAGE is a NEARSIDE SIDESWIPE down the whole car: front wing DENTED, front bumper corner scuffed, and a heavy scrape-and-dent through the REAR DOOR into the REAR QUARTER PANEL + sill (bare metal showing). The rear quarter is a WELDED panel → bodyshop fill-pull-and-blend, and a multi-panel black paint blend = NOT a first-timer DIY job (hand the paint/quarter to a bodyshop). Also “ENGINE MANAGEMENT LIGHT ILLUMINATED” (diagnostic) and no V5 (V62). The low miles still make it worth watching, but it’s a bodyshop project (~£850–2,000 in repair) and it’ll bid up — so the margin is tighter than it first looked, not the light flip I wrongly called.',
   lede:'⚠ <b>WATCH — corrected read.</b> Lovely low-miles car (genuine 23.9k, valid MOT, 2 keys) BUT the damage is a <b>nearside sideswipe</b>: front wing dented + rear door + <b>rear quarter panel</b>/sill — a multi-panel <b>bodyshop</b> job (welded quarter + black blend), not the light flip I first called (thanks Gareth for catching it). Plus an EML light and no V5. Still viable on the miles, but tighter margin and not a beginner DIY.',
@@ -256,7 +288,7 @@ const CARS = [
     resale:{low:10000,mid:10750,high:11500},bidDefault:4000,bidMin:0,bidMax:7000,bidStep:50}
 },
 {
-  id:'w-golf19-tdi', lot:'59553666', title:'2019 VW Golf 1.6 TDI Match', yr:'1.6 TDI · 5dr · 6-spd Manual', cat:'Cat N',
+  id:'w-golf19-tdi', lot:'59553666', archived:true, title:'2019 VW Golf 1.6 TDI Match', yr:'1.6 TDI · 5dr · 6-spd Manual', cat:'Cat N',
   sale:'SOLD £4,950 · 18 Aug · Sandtoft', loc:'Sandtoft (DN8)', currentBid:4950, verdict:'sold',
   headline:'WATCH — desirable low-miles diesel, honest history; SELLS TODAY 12:30. 2019 Golf 1.6 TDI Match, silver, GENUINE 44,020 miles (DVSA trail rises cleanly 11,744→36,325→44,020, no clocking), diesel Euro 6/ULEZ-ok, runs &amp; drives, 1 key + spare. HD review of all 13 photos (Rule #0.0): damage is confined to the OFFSIDE FRONT CORNER — bonnet is straight, the crease is in the wing; offside headlight looks pushed; front bumper corner scuffed; a windscreen chip/crack is marked (yellow circles). UNDERCARRIAGE secondary is the wildcard (heat-shield knock vs suspension/alignment). Rear, both flanks, roof, interior, engine bay, boot floor all clean; no airbags. ACV £12,215, BIN £6,300, hb £2,750. No V5 (V62). MOT expired TODAY — budget a fresh test. Transport is the drag — Sandtoft (Yorkshire) ~£450. If it wins ~£3–4k the margin holds (~£10k resale), but the undercarriage + headlight/screen make it a proper front-corner rebuild, not a light DIY job — and it sells in hours.',
   lede:'✅ <b>WATCH — solid car, sells TODAY 12:30.</b> 2019 Golf 1.6 TDI Match, <b>genuine 44k</b>, clean MOT trail, 1 key + spare. HD-verified: damage is one corner — OS wing crease, OS headlight pushed, bumper corner, a marked windscreen chip; bonnet straight. “Undercarriage” secondary is the wildcard. Not a light DIY job. Good margin (~£10k resale) if it wins ~£3–4k — but decide fast.',
@@ -284,7 +316,7 @@ const CARS = [
     resale:{low:9000,mid:10000,high:11000},bidDefault:3500,bidMin:0,bidMax:6000,bidStep:50}
 },
 {
-  id:'w-golf8-rline', lot:'62959156', title:'2021 VW Golf 1.5 TSI R-Line (Mk8)', yr:'1.5 TSI · 5dr · 6-spd Manual', cat:'Cat U (⚠ likely finance repo)',
+  id:'w-golf8-rline', lot:'62959156', archived:true, title:'2021 VW Golf 1.5 TSI R-Line (Mk8)', yr:'1.5 TSI · 5dr · 6-spd Manual', cat:'Cat U (⚠ likely finance repo)',
   sale:'WATCHLIST · Sale Thu 20 Aug · Wolverhampton', loc:'Wolverhampton (WV5)', currentBid:3850, verdict:'review',
   headline:'REVIEW — potentially superb, but gated ENTIRELY on the HPI. A 2021 Golf 1.5 TSI R-Line (Mk8), grey, 46,744 miles, Cat U (UNRECORDED), damage “NORMAL WEAR” — i.e. NO accident damage (the photos confirm it: clean straight panels, wheels true). Valid MOT to Nov 2026, genuine ~47k, HAS V5, runs &amp; drives. ACV £17,250 — but the current bid is only £3,850. A clean, driving, undamaged £17k car this cheap at salvage is the classic FINANCE-REPOSSESSION profile (a stolen car wouldn’t carry a fresh MOT). As a trade buyer you get NO innocent-purchaser protection, so outstanding finance could see it repossessed after you’ve paid. Plus it wears a Northern-Ireland-style plate (TGZ). VERDICT: if a £3.99 Total Car Check comes back with NO finance and not stolen, this is a strong flip — but on REAL numbers, not the old guess: live Autotrader (18 Aug) shows a clean Mk8 R-Line ~50k asking ~£14,960 and a Cat N one at £9,470, so an undamaged Cat U example realistically resells ~£11.5–13.75k (NOT ~£15.5k). Even so, bought clean at a sensible bid that is a healthy margin. If there’s finance → hard pass. Do NOT bid until the HPI is clear.',
   lede:'❓ <b>REVIEW — all about the HPI.</b> <b>HD-verified undamaged</b> (all 13 photos): a “normal wear” Cat U Mk8 Golf R-Line, genuine 47k, valid MOT to Nov ’26, has V5, runs &amp; drives — but a clean £17k car at £3,850 screams <b>finance repossession</b>. Run a £3.99 HPI: no finance → strong flip (live-comp resale ~£12.75k, still a big margin at a sensible bid); finance → hard pass. Don’t bid until it’s clear.',
@@ -308,7 +340,7 @@ const CARS = [
     resale:{low:11500,mid:12750,high:13750},bidDefault:6500,bidMin:0,bidMax:14000,bidStep:100}
 },
 {
-  id:'w-polo21-beats', lot:'61149786', title:'2021 VW Polo 1.0 Beats', yr:'1.0 EVO 80 · 5dr · 5-spd Manual', cat:'Cat N',
+  id:'w-polo21-beats', lot:'61149786', archived:true, title:'2021 VW Polo 1.0 Beats', yr:'1.0 EVO 80 · 5dr · 5-spd Manual', cat:'Cat N',
   sale:'AUCTION CLOSED 18 Aug · last bid £5,500 · Deeside', loc:'Deeside/Chester (CH5)', currentBid:5500, verdict:'sold',
   headline:'WATCH — good car, but already bid up and it SELLS TODAY 12:30. 2021 Polo 1.0 Beats, black, GENUINE 37,678 miles (cluster-confirmed), Cat N, runs &amp; drives, 2 SETS OF KEYS, HAS V5 (no V62!), tyre kit, ACV £12,205. HD review of all 15 photos: damage is a NEARSIDE SIDESWIPE SCRAPE running the full flank — front wing, both doors, rear quarter/arch + sill — but the panels are STRAIGHT (a scrape, not dents), so no panel replacement; the cost is refinishing 4–5 black panels. Front-end secondary is minor. Everything else clean (no airbags). The catch: bid is already £5,500 and climbing toward the hammer in hours — a Cat N black Polo bid that high, once you add multi-panel black paint + far transport (Chester ~£450) + fees into a ~£10k repaired resale, leaves the margin thin. Only worth it if it STALLS below ~£5k — otherwise let it go.',
   lede:'⚠ <b>WATCH — bid already high, sells TODAY 12:30.</b> Desirable 2021 Polo Beats, genuine 37k, has V5, 2 sets of keys. HD-verified: a full-nearside <b>scrape</b> (wing + both doors + rear qtr + sill) — panels straight, no dents, but 4–5 <b>black</b> panels to refinish. Already at <b>£5,500</b>; add paint + Chester transport (~£450) into a ~£10k resale and margin thins fast. Only worth it if it stalls below ~£5k.',
@@ -333,7 +365,7 @@ const CARS = [
     resale:{low:9000,mid:10000,high:11000},bidDefault:6000,bidMin:0,bidMax:8000,bidStep:50}
 },
 {
-  id:'w-boxster-986s', lot:'57113886', title:'2003 Porsche Boxster 3.2 S', yr:'3.2 flat-6 · 2dr · 6-spd Manual', cat:'Cat N · genuine ~40k',
+  id:'w-boxster-986s', lot:'57113886', archived:true, title:'2003 Porsche Boxster 3.2 S', yr:'3.2 flat-6 · 2dr · 6-spd Manual', cat:'Cat N · genuine ~40k',
   sale:'WATCHLIST · Sale Wed 19 Aug · Sandy', loc:'Sandy (SG19)', currentBid:2700, verdict:'review',
   headline:'REVIEW — the heart-over-head one, but the HD look clears up two worries. A 986 Boxster 3.2 S, blue, 40,195 miles, Cat N, runs &amp; drives, HAS V5, keys, MOT to Dec 2026, cheap transport (Sandy ~£238). HD review of all 14 photos + full MOT trail: (1) the mileage is GENUINE low — the trail rises coherently (25,033 in 2013 → 39,745 Dec 2025, ~1.25k/yr); the “discrepancy” is a single out-of-sequence 2014 entry (29,713 where 2013/2015/2016 read 25k/28k/29k) that reads as a tester key-error, NOT clocking (it self-corrects). It still shows on HPI, so disclose it, but the car really is ~40k. (2) The damage is NOT a rad-crushing nose-in — it’s a glancing NEARSIDE FRONT CORNER: front wing creased ahead of the arch + bumper corner scuff + kerbed NS alloy. Bumper largely intact, frunk uncrushed, rads probably fine. Add age lacquer-peel on the front lid + paint swirls. Everything else straight — rear, offside, both quarters; leather good; soft-top works (up &amp; down in shots); underside structurally sound; NO airbags. So the visible car is honest and very repairable. The REAL reason it stays REVIEW: the uncheckable 986 M96 tail-risk (IMS bearing, RMS, bore scoring, plastic coolant pipes) you can’t derisk at auction, plus a niche, seasonal convertible resale that’s a different game from your VW hatch flips.',
   lede:'💙 <b>REVIEW — margin is real, the engine is the gamble.</b> Real Autotrader comps (18 Aug): a clean 40k 986 S <b>asks £14–16k</b> — so repaired + disclosed this is a <b>~£8.5–11k</b> car, well above my old guess. Damage is a minor <b>nearside front-corner</b> (wing + bumper, frunk uncrushed); mileage genuinely ~40k. So the money works IF the engine’s good. Stays REVIEW purely for the uncostable <b>986 M96 tail-risk</b> (IMS/RMS/bore/coolant pipes) + niche convertible market — a punt on the engine internals, at a sensible buy price.',
@@ -359,7 +391,7 @@ const CARS = [
     resale:{low:8500,mid:9750,high:11000},bidDefault:3400,bidMin:0,bidMax:6000,bidStep:50}
 },
 {
-  id:'w-golf12-dsg', lot:'63632416', title:'2012 VW Golf 1.4 TSI Match DSG', yr:'1.4 TSI · 5dr · 7-spd DSG', cat:'Cat U (⚠ live finance)',
+  id:'w-golf12-dsg', lot:'63632416', archived:true, title:'2012 VW Golf 1.4 TSI Match DSG', yr:'1.4 TSI · 5dr · 7-spd DSG', cat:'Cat U (⚠ live finance)',
   sale:'WATCHLIST · Sale Fri 28 Aug · Sandwich', loc:'Sandwich (CT13)', currentBid:525, verdict:'review',
   headline:'REVIEW leaning PASS — cheap and light-damage, but the risk/value maths don’t work. 2012 Golf 1.4 TSI Match, grey, 82,301 miles, Cat U (unrecorded), damage only MINOR DENTS/SCRATCHES, runs &amp; drives, 2 keys + spare, HAS V5, fresh MOT to Jul 2027. Sounds good — until the notes: “ON A FINANCE STOCKING PLAN” (LIVE finance → HPI essential) and “WINDSCREEN DAMAGED” (replacement cost). It’s also a 7-speed DSG (the DQ200 dry-clutch — a known mechatronic/clutch money-pit at 82k, £1,000+ uncostable) plus the 1.4 TSI timing-chain risk — all on a car worth only ~£3,800. So the downside (a DSG failure) can wipe the whole margin on a low-value car, and the live finance is a title risk. Not compelling.',
   lede:'🚫 <b>REVIEW → likely PASS.</b> HD-verified: body genuinely <b>straight</b> (damage is just a windscreen chip + kerbed alloys). But a <b>live finance flag</b> (“stocking plan”), the <b>damaged windscreen</b>, and a <b>DSG (DQ200)</b> + 1.4 chain money-pit risk, all on a ~£3,800 car. The mechanical/title downside can wipe the margin. Not worth the risk.',
@@ -385,7 +417,7 @@ const CARS = [
     resale:{low:3300,mid:3700,high:4200},bidDefault:900,bidMin:0,bidMax:2000,bidStep:25}
 },
 {
-  id:'egolf-18', lot:'61471246', title:'2018 VW e-Golf 35kWh', yr:'99kW · Auto · Electric', cat:'Cat U',
+  id:'egolf-18', lot:'61471246', archived:true, title:'2018 VW e-Golf 35kWh', yr:'99kW · Auto · Electric', cat:'Cat U',
   sale:'Passed 28 Jul — not pursued', loc:'Sandy (Beds)', currentBid:600, verdict:'pass', archived:true,
   headline:'PASS as a blind buy — a REVIEW only if the battery checks out. An electric Golf, and the primary damage is coded <b>UNDERCARRIAGE</b> — which on an EV is the worst place to be hit, because the high-voltage battery pack lives in the floor. The one underside photo shows a rusty-but-intact front subframe (no obvious impact), and the car is cosmetically clean everywhere else — but the battery pack itself isn’t shown, there are <b>NO keys</b>, and Copart lists it <b>run condition Unconfirmed</b>, so the battery’s State of Health can’t be checked at all. On top of that it’s done <b>~110k miles</b> (DVSA-verified, no clocking) — very high for a 35kWh EV, so real capacity/range loss is likely even if the pack is undamaged. It IS Cat U (unrecorded) with a fresh MOT to Dec 2026 and ACV £4,878, and at £600 a healthy running e-Golf would be a steal — but the battery is an uncostable unknown, and a breached pack turns this into parts/scrap. AND the Copart notes add two real strikes: the car is <b>“CURRENTLY ON A FINANCE STOCKING PLAN”</b> (a live finance flag — Cat U means no accident write-off, it does NOT mean finance-free, and as a trade buyer you get no innocent-purchaser protection), and it’s <b>“DEAD LOCKED”</b> with no key, so you can’t even open, power up or charge it to check anything. Do NOT bid blind. The one thing that unlocks it: Copart’s FREE EV Battery Health Report (I can’t pull it) — get that first.',
   chips:[['bad','UNDERCARRIAGE damage on an EV — battery-pack risk'],['bad','~110k miles — heavy battery degradation likely'],['bad','NO keys · run UNCONFIRMED — can’t test the battery'],['bad','NOTES: “ON A FINANCE STOCKING PLAN” — finance/title flag'],['bad','NOTES: “DEAD LOCKED” + no key — can’t open/power/charge it'],['warn','Battery health UNKNOWN — get Copart’s FREE EV report'],['good','Cat U — UNRECORDED (no write-off) — but ≠ finance-free'],['good','Fresh MOT to Dec 2026 · Sandy → £238 delivery'],['good','ACV £4,878 · a runner would be cheap at £600'],['info','Fresh listing — Jul photos, newest lot no. (61.47M)']],
@@ -409,7 +441,7 @@ const CARS = [
     resale:{low:3800,mid:4900,high:6000},bidDefault:600,bidMin:0,bidMax:1500,bidStep:25}
 },
 {
-  id:'gti-perf-19', lot:'61122106', title:'2019 VW Golf GTI Performance', yr:'2.0 TSI 245 · 6-spd Manual', cat:'Cat U',
+  id:'gti-perf-19', lot:'61122106', archived:true, title:'2019 VW Golf GTI Performance', yr:'2.0 TSI 245 · 6-spd Manual', cat:'Cat U',
   sale:'Passed — not pursued (may relist)', loc:'St Helens (Merseyside)', currentBid:6100, verdict:'pass', archived:true,
   headline:'THE STRONGEST CAR ON PAPER SO FAR — and the biggest question mark. A 2019 Golf GTI Performance (Mk7.5, 245bhp, manual), genuine ~40k miles with NO clocking, FRESH MOT to May 2027, runs &amp; drives (Copart-verified), panoramic roof, GTI tartan, diamond-cut alloys, complete engine bay, keys present. Copart ACV £18,550; clean examples ask £19.5–20.6k. And it is <b>Cat U — UNRECORDED</b>, so a tidy repair leaves NO write-off marker. The catch is huge though: the primary damage is coded <b>“Front End”</b> but I could NOT find it in any of the 23 photos — the car looks clean and it was road-legal 2 months ago, so the damage is recent and probably light, but “front end” can hide a rad/condenser/slam-panel behind an intact bumper. And a clean-looking £18k GTI sitting at salvage begs the question WHY — so the vehicle report (finance + stolen/recovered) is non-negotiable before bidding, especially as a trade buyer with no innocent-purchaser protection. Massive margin if it’s a light knock with clean history; a trap if it’s stolen-recovered or hides structural damage. REVIEW until the report’s seen and the damage is eyeballed (book Copart’s free 10-min WhatsApp viewing).',
   chips:[['good','2019 GTI Performance · genuine ~40k · no clocking (DVSA)'],['good','FRESH MOT to May 2027 · runs &amp; drives (Copart-verified)'],['good','Cat U — UNRECORDED (no write-off marker)'],['good','Pano roof · tartan · diamond-cut alloys · keys · ACV £18,550'],['good','Clean retail ~£19.5–20.6k (CarGurus, Jul ’26)'],['warn','“Front end” damage NOT visible in 23 photos — book a viewing'],['bad','Report NOT yet seen — finance/stolen UNVERIFIED'],['warn','No/partial V5 · St Helens → £519 delivery'],['info','FRESH listing — booked in ~Jul, newest lot no. (61.1M)']],
@@ -468,7 +500,7 @@ const CARS = [
     resale:{low:4500,mid:4750,high:4995},bidDefault:2050,bidMin:0,bidMax:3200,bidStep:25}
 },
 {
-  id:'gle-flood', lot:'52790736', title:'2016 Mercedes GLE 350d AMG Line', yr:'3.0 V6d · 4MATIC 9G', cat:'Cat N',
+  id:'gle-flood', lot:'52790736', archived:true, title:'2016 Mercedes GLE 350d AMG Line', yr:'3.0 V6d · 4MATIC 9G', cat:'Cat N',
   sale:'Mon 27 Jul 2026', loc:'Bristol', currentBid:4100, verdict:'pass', archived:true,
   headline:'AVOID — FLOOD DAMAGE. It looks gorgeous (AMG Line, clean panels, ACV £14k for a £4.1k bid) — and that price gap IS the warning, not the bargain. Copart notes state “VEHICLE EXPOSED WATER DAMAGE”; primary damage is Water/Flood, it DOES NOT RUN, the cluster is lit with a full row of fault lights, ~117k miles, no V5, 1 key. Flood damage on a 2016 electronics-heavy Merc is the one salvage type even seasoned flippers refuse: the repair is genuinely UNCOSTABLE — water corrodes ECUs, connectors and looms and the faults cascade for months. It’s not a cosmetic flip, it’s a money pit that also has to be sold AS flood-damaged (which craters resale). Only rational use is breaking for parts. Hard PASS.',
   chips:[['bad','WATER / FLOOD (Copart notes confirm)'],['bad','DOES NOT RUN · cluster throwing faults'],['bad','2016 premium Merc = dozens of ECUs to corrode'],['warn','~117k miles (cluster) · no V5 · 1 key'],['good','Cosmetically clean — that’s the bait'],['','ACV £14k vs £4.1k bid = flood stigma, not value']],
@@ -482,7 +514,7 @@ const CARS = [
   pendingRepair:'No repair estimate — on purpose. Flood damage on a modern electronics-heavy Mercedes can’t be costed as a fixed job: you can’t know which of the dozens of control modules, connectors and wiring looms the water has killed until you dry it out, power it up and watch faults cascade over weeks. A single flooded SAM / comfort / transmission module is £300–1,500, and there are many — plus loom corrosion, contaminated 4MATIC + 9G-Tronic fluids, and interior mould. Even if you get it running, it must legally be sold AS flood-damaged, which craters resale far worse than a cosmetic Cat N. The only rational play on a flood car is breaking it for parts — not repairing to flip. Pass.'
 },
 {
-  id:'clk-320', lot:'85607945', title:'2006 Mercedes CLK 320 Avantgarde Cabriolet', yr:'3.2 V6 Auto', cat:'Cat N',
+  id:'clk-320', lot:'85607945', archived:true, title:'2006 Mercedes CLK 320 Avantgarde Cabriolet', yr:'3.2 V6 Auto', cat:'Cat N',
   sale:'Passed 25 Jul 2026', loc:'Whitburn (Scotland)', currentBid:250, bin:600, verdict:'pass', archived:true,
   headline:'PASSED — the Scotland transport killed it. Copart delivery to KT3 £1,148 (Whitburn ~380 mi); even a haulier ~£450–600 is heavy on a £3–4k car. Add “Engine starts” only + front suspension damage (splayed wheel) + a cheap convertible resale, and the margin’s too thin for the faff. Good bones (physical V5, 2 keys, spare, genuine 67.8k, clean notes) but not worth it from that far north. Workup kept.',
   chips:[['good','Physical V5 · 2 keys · spare wheel'],['good','Notes clean — no theft flag'],['good','Genuine 67,782 (odo + notes)'],['good','Petrol Euro 4 · ULEZ-compliant'],['bad','Copart delivery £1,148 — Scotland (use a haulier!)'],['bad','“Engine starts” only — front suspension damage'],['warn','Cat N: front-end + undercarriage'],['warn','Convertible — soft-top condition unconfirmed'],['','BIN £600 · reserve not met @ £250']],
@@ -505,7 +537,7 @@ const CARS = [
     resale:{low:2800,mid:3300,high:3800},bidDefault:500,bidMin:0,bidMax:800,bidStep:25}
 },
 {
-  id:'z4-23i', lot:'58199446', title:'2011 BMW Z4 23i sDrive M Sport', yr:'2.5 6cyl Auto', cat:'Cat N',
+  id:'z4-23i', lot:'58199446', archived:true, title:'2011 BMW Z4 23i sDrive M Sport', yr:'2.5 6cyl Auto', cat:'Cat N',
   sale:'Ended 24 Jul 2026', loc:'Sandwich', currentBid:2300, verdict:'pass', archived:true,
   headline:'OUTBID — didn’t win. Sold for more than £2,300, above your £2,250 max (exact hammer hidden from non-buyers). Good discipline holding the line — with the broken roof and a realistic ~£5–6k resale, chasing it higher was the losing move. Workup kept: HPI clean (no finance, not stolen, genuine 68k, V5C) but Cat N front-nearside accident, folding roof “does not fully lower”, only 1 key, rear alloys fractured two years running, 8 keepers. These come round again.',
   chips:[['good','HPI: finance CLEAR · not stolen'],['good','Genuine 68k · no clocking (HPI+DVSA)'],['good','Runs &amp; drives · 2.5 six M Sport · ULEZ-exempt'],['good','Engine bay complete · oyster leather'],['bad','ROOF DOES NOT FULLY LOWER (malfunction)'],['warn','8 keepers — resale haggling point'],['warn','Rear alloys fractured 2024 + 2025 (MOT)'],['warn','Only 1 key'],['warn','Cat N: front-nearside accident (Apr 2026)'],['','No VAT on hammer']],
@@ -528,7 +560,7 @@ const CARS = [
     resale:{low:5000,mid:5700,high:6500},bidDefault:2250}
 },
 {
-  id:'focus-st', lot:'47681476', title:'2014 Ford Focus ST', yr:'2.0T 5dr', cat:'Cat N',
+  id:'focus-st', lot:'47681476', archived:true, title:'2014 Ford Focus ST', yr:'2.0T 5dr', cat:'Cat N',
   sale:'Passed 25 Jul 2026', loc:'Bristol', currentBid:2050, verdict:'pass', archived:true,
   headline:'PASSED (not bidding) — too niche. Heavily modified (chameleon wrap, remap, lowered) = narrow buyer pool that sits, AND provenance-blind: the plate M666 SST is a retained cherished plate with NO live DVSA record, so no MOT/mileage and no HPI/finance check possible pre-sale. VIN WF0KXXGCBKES27297 confirms a genuine European Ford, but without the real reg it can’t be vetted. Gareth’s call: too slow to sell, can’t verify — pass. Workup kept.',
   chips:[['good','Run &amp; Drive (Copart-flagged)'],['good','Petrol 2.0T · ULEZ-exempt'],['good','Keys present'],['good','Copart ACV £10,077'],['bad','Can’t HPI/MOT-check — retained plate, no live reg'],['warn','74k miles unverifiable online'],['warn','Modified: wrap + alloys + lowered + likely remap'],['warn','Front bumper / splitter damage'],['warn','V5 reference only — V62 needed'],['','No Copart notes · reserve not met @ £2,050']],
@@ -551,7 +583,7 @@ const CARS = [
     resale:{low:6000,mid:7000,high:7800},bidDefault:2500}
 },
 {
-  id:'polo-moda', lot:'54453106', title:'2010 VW Polo 1.2 Moda', yr:'5dr', cat:'Cat N',
+  id:'polo-moda', lot:'54453106', archived:true, title:'2010 VW Polo 1.2 Moda', yr:'5dr', cat:'Cat N',
   sale:'Passed 28 Jul — not pursued', loc:'Chester', currentBid:750, verdict:'pass', archived:true,
   headline:'REVIEW — YOUR risk call (kept alive). Notes/report flag STOLEN / RECOVERED (VRN PN60WBT) — a serious provenance mark that hits resale and buyer trust, though clean-title recovered cars do sell at a discount. It IS a confirmed Runs &amp; Drives with 33k. Big catch: Chester delivery is £740 on Copart — a cheap haulier is essential to make it work. Explore the report fully before bidding.',
   chips:[['bad','STOLEN / RECOVERED (notes + report)'],['good','Runs &amp; drives (Copart-verified)'],['good','~30k miles CONFIRMED (DVSA MOTs)'],['good','MOT valid to 7 Jan 2027'],['good','Petrol 1.2 · ULEZ-exempt'],['warn','Damage front AND rear'],['warn','Chester delivery £740 (Copart) — use a haulier'],['warn','No V5 — V62 needed'],['info','Old Copart record (lot 54.4M) · re-shot Jul — likely a re-run'],['','No VAT on hammer']],
@@ -577,7 +609,7 @@ const CARS = [
     resale:{low:2600,mid:3100,high:3600},bidDefault:800}
 },
 {
-  id:'polo-match-12', lot:'54217926', title:'2012 VW Polo 1.2 Match', yr:'3dr', cat:'Cat N',
+  id:'polo-match-12', lot:'54217926', archived:true, title:'2012 VW Polo 1.2 Match', yr:'3dr', cat:'Cat N',
   sale:'Passed 28 Jul — not pursued', loc:'Gloucester', currentBid:400, verdict:'pass', archived:true,
   headline:'THIN margin — ACV £3,675, 3-door (less liquid), 98k miles, front+rear damage. BUT it is a confirmed Runs &amp; Drives and the notes are clean (2 keys, spare wheel, tyre kit — no theft flag). Report PDF is unreadable to me; provenance (owners/plate history) needs your screenshot, but nothing adverse in the notes.',
   chips:[['good','Runs &amp; drives (Copart-verified)'],['good','MOT to Aug 2026 · no clocking (DVSA)'],['good','Notes clean — 2 keys, spare, tyre kit'],['good','Petrol 1.2 · ULEZ-exempt'],['good','Reserve MET'],['warn','Damage front AND rear'],['warn','3-door · 98k · thin ACV £3,675'],['warn','MOT advisory: exhaust flexi leak + CV boot'],['warn','On lot ~10+ wks — photographed May, likely a re-run'],['','No VAT on hammer']],
@@ -602,7 +634,7 @@ const CARS = [
     resale:{low:1800,mid:2200,high:2600},bidDefault:500}
 },
 {
-  id:'polo-se', lot:'59090246', title:'2010 VW Polo 1.4 SE', yr:'5dr', cat:'Cat N',
+  id:'polo-se', lot:'59090246', archived:true, title:'2010 VW Polo 1.4 SE', yr:'5dr', cat:'Cat N',
   sale:'Ended 22 Jul 2026', loc:'Bristol', currentBid:1100, verdict:'pass', archived:true,
   headline:'OUTBID — sold above £1,100 (over the £1,050 max; exact hammer not disclosed to non-buyers). Workup kept — these come round again.',
   chips:[['good','Runs & drives'],['good','52k genuine (MOT-verified)'],['good','MOT to Jun 2027'],
@@ -630,7 +662,7 @@ const CARS = [
     resale:{low:2880,mid:3320,high:3915},bidDefault:950}
 },
 {
-  id:'rs6', lot:'60546026', title:'2016 Audi RS6', yr:'4.0T Avant', cat:'Cat U',
+  id:'rs6', lot:'60546026', archived:true, title:'2016 Audi RS6', yr:'4.0T Avant', cat:'Cat U',
   sale:'Sold 21 Jul 2026', loc:'Sandtoft', currentBid:15200, verdict:'sold', archived:true, sold:19200,
   headline:'SOLD at auction for £19,200 (21 Jul 2026) — we watched, didn’t chase. Kept for the record; may resurface elsewhere.',
   chips:[['','SOLD £19,200 · 21 Jul 2026'],['good','Cat U — unrecorded, no marker'],['good','Copart-verified: starts & drives'],['good','7 MOT passes · no clocking'],
@@ -659,7 +691,7 @@ const CARS = [
     resale:{low:25500,mid:27500,high:30000},bidDefault:19200,bidMin:14000,bidMax:24000,bidStep:250}
 },
 {
-  id:'polo-match', lot:'60564156', archived:true, title:'2013 VW Polo 1.4 Match', yr:'5dr DSG', cat:'Cat N',
+  id:'polo-match', lot:'60564156', archived:true, archived:true, title:'2013 VW Polo 1.4 Match', yr:'5dr DSG', cat:'Cat N',
   sale:'Thu 23 Jul 2026', loc:'Newbury', currentBid:975, verdict:'pass',
   headline:'Nicer spec, but stacks up strikes — DSG, no V5, MOT nearly out, and already bid past sensible.',
   chips:[['good','92k genuine'],['warn','DSG auto — mechatronic risk'],['warn','No V5 logbook'],
@@ -675,7 +707,7 @@ const CARS = [
   model:null
 },
 {
-  id:'boxster', lot:'55253806', title:'2011 Porsche Boxster', yr:'987.2 S', cat:'Cat N',
+  id:'boxster', lot:'55253806', archived:true, title:'2011 Porsche Boxster', yr:'987.2 S', cat:'Cat N',
   sale:'Passed 26 Jul 2026', loc:'Wisbech', currentBid:4350, bin:6500, verdict:'pass', archived:true,
   headline:'PASSED — a considered pass, not a numbers pass. The maths worked at ≤£4,750, but it crept to £4,350 and the BIN is £6,500 (£1,750 over the disciplined ceiling). Two honest reasons to walk: (1) it’s a car Gareth would want to KEEP not flip — the exact emotional-trap car — and (2) the cash isn’t free yet (finishing the Bentley), so tying £7–9k into a complex, “does-not-run”, could-sit-for-weeks Porsche risks the cashflow. The dream keep is real, but not this silver one on borrowed headroom. A cleaner 987.2 S (actually runs & drives) will come round when the money’s genuinely his. Full workup kept for reference.',
   chips:[['good','Gen2 987.2 — no IMS bearing issue'],['good','MOT-passed & driving Apr ’26'],['good','79k genuine · no clocking'],
